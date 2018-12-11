@@ -1,8 +1,21 @@
 import React, { Component } from 'react';
+import { number } from 'prop-types';
+import { connect } from 'react-redux';
+
 import logo from './logo.svg';
 import './App.scss';
+import { updateCount } from './actions';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.inc = this.inc.bind(this);
+  }
+
+  inc() {
+    updateCount();
+  }
+
   render() {
     return (
       <div className="App">
@@ -19,10 +32,20 @@ class App extends Component {
           >
             Learn React
           </a>
+          <p><button onClick={() => this.inc()}>Click Me</button></p>
+          <p>{ this.props.n }</p>
         </header>
       </div>
     );
   }
 }
 
-export default App;
+App.propTypes = {
+    n: number.isRequired,
+};
+
+function mapStateToProps(state) {
+    return state;
+}
+
+export default connect(mapStateToProps)(App);
