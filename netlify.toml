@@ -1,0 +1,12 @@
+[Settings]
+  ID = "ism-watershed-wellness-snapshot"
+
+[build]
+  base    = "./src/"
+  publish = "./build/"
+  command = "pushd ../.. && ./scripts/cibuild && popd"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
