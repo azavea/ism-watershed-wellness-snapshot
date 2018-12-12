@@ -18,6 +18,7 @@ then
     then
         usage
     else
-        yarn install
+        vagrant up --provision
+        vagrant ssh -c "cd /vagrant && ./scripts/update"
     fi
 fi
