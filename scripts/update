@@ -18,6 +18,15 @@ then
     then
         usage
     else
-        yarn install
+        # Install NPM modules
+        docker-compose \
+            -f docker-compose.yml \
+            run --rm --no-deps app \
+            yarn
+
+        # Build containers.
+        docker-compose \
+            -f docker-compose.yml \
+            build
     fi
 fi

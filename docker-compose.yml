@@ -1,0 +1,13 @@
+version: '3'
+services:
+  app:
+    image: node:8.11
+    working_dir: /usr/src
+    ports:
+      - "3000:3000"
+    volumes:
+        - ./src/app:/usr/src
+        # Ensure node_modules cache doesn't clash with other jobs on CI.
+        - /var/cache/ism-watershed-wellness-support-node-modules:/usr/src/node_modules
+    command:
+        yarn start
