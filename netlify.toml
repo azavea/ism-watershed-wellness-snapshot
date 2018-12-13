@@ -1,0 +1,21 @@
+[Settings]
+  ID = "ism-watershed-wellness-snapshot"
+
+[build]
+  base    = "./src/app/"
+  publish = "./src/app/build/"
+  command = "pushd ../.. && ./scripts/cibuild && popd"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+[headers.values]
+  Content-Security-Policy = "default-src https: blob: data: 'unsafe-inline' 'unsafe-eval'"
+  X-Frame-Options = "DENY"
+  X-XSS-Protection = "1; mode=block"
+  X-Content-Type-Options = "nosniff"
+  Referrer-Policy = "origin-when-cross-origin"
