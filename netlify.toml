@@ -3,7 +3,7 @@
 
 [build]
   base    = "./src/app/"
-  publish = "./build/"
+  publish = "./src/app/build/"
   command = "pushd ../.. && ./scripts/cibuild && popd"
 
 [[redirects]]
