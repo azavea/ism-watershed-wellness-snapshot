@@ -2,7 +2,7 @@
   ID = "ism-watershed-wellness-snapshot"
 
 [build]
-  base    = "./src/"
+  base    = "./src/app/"
   publish = "./build/"
   command = "pushd ../.. && ./scripts/cibuild && popd"
 
