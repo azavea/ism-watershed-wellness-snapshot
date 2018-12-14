@@ -12,17 +12,17 @@ import createStoreWithMiddleware from './store';
 import reducers from './reducers';
 
 const store = createStoreWithMiddleware(reducers);
-assignAll(actions, store)
+assignAll(actions, store);
 
 render(
     <Provider store={store}>
         <BrowserRouter>
             <div>
-                <Route exact path="/" component={App} />
+                <Route exact path='/' component={App} />
             </div>
         </BrowserRouter>
     </Provider>,
-    document.getElementById('root'),
+    document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
