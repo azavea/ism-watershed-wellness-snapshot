@@ -23,7 +23,15 @@ if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
     if [ "${1:-}" = "--help" ]; then
         usage
     else
+        pushd src/app
+
+        # Run linter
+        ./node_modules/react-scripts/node_modules/.bin/eslint \
+         src/ --ext .js --ext .jsx --max-warnings=0
+
         # Build static asset bundle
-        pushd src/app && yarn build && popd
+        yarn build
+
+        popd
     fi
 fi
