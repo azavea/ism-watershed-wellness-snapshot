@@ -2,6 +2,8 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 
+import reducers from './reducers';
+
 const middlewares = [thunk];
 
 if (process.env.NODE_ENV === 'development') {
@@ -9,6 +11,18 @@ if (process.env.NODE_ENV === 'development') {
     middlewares.push(logger);
 }
 
-const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
+const configureStore = () => {
+    const store = applyMiddleware(...middlewares)(createStore)(reducers);
 
-export { createStoreWithMiddleware as default };
+    if (process.env.NODE_ENV !== 'production') {
+        if (module.hot) {
+            module.hot.accept('./reducers', () => {
+                store.replaceReducer(reducers);
+            });
+        }
+    }
+
+    return store;
+};
+
+export { configureStore as default };
