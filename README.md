@@ -15,6 +15,16 @@ Install the application and all required dependencies.
 
 #### Development
 
+The application requires a MapBox API key.
+
+First, create a `.env` file in the `src/app/` repo.
+
+Next, add the following line to that file:
+
+```
+REACT_APP_MAPBOX_API_KEY=<YOUR_API_KEY_HERE>
+```
+
 Rebuild Docker images and run application.
 
 ```sh

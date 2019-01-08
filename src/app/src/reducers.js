@@ -1,15 +1,7 @@
-import { createReducer } from 'redux-act';
-import update from 'immutability-helper';
+import { combineReducers } from 'redux';
 
-import { updateCount } from './actions';
+import map from './map.reducers';
 
-const initialState = {
-    n: 0,
-};
-
-export default createReducer(
-    {
-        [updateCount]: state => update(state, { n: { $set: state.n + 1 } }),
-    },
-    initialState
-);
+export default combineReducers({
+    map,
+});
