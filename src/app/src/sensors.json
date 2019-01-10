@@ -1,0 +1,47 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Location": "Tinicum",
+        "Name": "USGS 01475548 Cobbs Creek at Mt. Moriah Cemetery, Philadelphia"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.23767948150635,
+          39.93334294384733
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Location": "Wissahickon",
+        "Name": "USGS 01474000 Wissahickon Creek at Mouth, Philadelphia, PA"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.20681262016296,
+          40.01526962136133
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Location": "Delaware Water Gap",
+        "Name": "USGS 01438500 Delaware River at Montague NJ"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.79513645172119,
+          41.30847065369865
+        ]
+      }
+    }
+  ]
+}
