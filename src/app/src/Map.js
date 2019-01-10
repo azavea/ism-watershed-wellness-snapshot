@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactMapGL from 'react-map-gl';
+import ReactMapGL, { NavigationControl } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { connect } from 'react-redux';
 
@@ -16,7 +16,16 @@ class GLMap extends Component {
                     {...this.props.viewport}
                     onViewportChange={this.props.updateViewport}
                     mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
-                />
+                    mapStyle={'mapbox://styles/alash/cjpconu8b0sas2qn5rx51uog8'}
+                    interactive={false}
+                    doubleClickZoom={false}
+                    dragPan={false}
+                    dragRotate={false}
+                    touchZoomRotate={false}
+                    scrollZoom={false}
+                >
+                    <NavigationControl showZoom={false} />
+                </ReactMapGL>
             </div>
         );
     }
