@@ -29,7 +29,10 @@ if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
         ./node_modules/react-scripts/node_modules/.bin/eslint \
          src/ --ext .js --ext .jsx --max-warnings=0
 
-        # Build static asset bundle
+        # Rename netlify env vars so they are made available to CRA
+        # and build the app
+        REACT_APP_COMMIT_REF="$COMMIT_REF" \
+        REACT_APP_CONTEXT="$CONTEXT" \
         yarn build
 
         popd
