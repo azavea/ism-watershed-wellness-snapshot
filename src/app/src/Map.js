@@ -51,7 +51,7 @@ class GLMap extends Component {
                     {...this.props.mapstate}
                     onViewportChange={this.props.updateViewport}
                     mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
-                    mapStyle={'mapbox://styles/alash/cjpconu8b0sas2qn5rx51uog8'}
+                    mapStyle={'mapbox://styles/alash/cjqy7v5yn04ra2rmhy72tvnhc'}
                     interactive={false}
                     doubleClickZoom={false}
                     dragPan={false}
