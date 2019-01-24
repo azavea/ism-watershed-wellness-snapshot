@@ -6689,10 +6689,10 @@ mixin-object@^2.0.1:
     for-in "^0.1.3"
     is-extendable "^0.1.1"
 
-mjolnir.js@^2.0.0:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/mjolnir.js/-/mjolnir.js-2.0.2.tgz#bd8f4ee36ce8a05d9643e3b4738436c1df2e3a04"
-  integrity sha512-xNWPIHATqMAgxv3KO1R/c6XfxRJ0eNNlEHXuUKEgN2S3NjuSxQ1Evvqu5DkNdJ7SWwGDpmenUUpi5/Vak+f3+Q==
+mjolnir.js@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/mjolnir.js/-/mjolnir.js-2.0.3.tgz#2354d31bc966a13f18d3bc350d5491acfb562914"
+  integrity sha512-3AvoMwJCR3m9QQYzsE+D+LWZ9N2uWbl7prixSJGRZNOpaagRgiXJeVvDEHTiXAGmNhdn/VAtgWrx3lpdrj2sIQ==
   dependencies:
     "@babel/runtime" "^7.0.0"
     hammerjs "^2.0.8"
@@ -8491,14 +8491,14 @@ react-is@^16.3.2, react-is@^16.6.3:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.6.3.tgz#d2d7462fcfcbe6ec0da56ad69047e47e56e7eac0"
   integrity sha512-u7FDWtthB4rWibG/+mFbVd5FvdI20yde86qKGx4lVUTWmPlSWQ4QxbBIrrs+HnXGbxOUlUzTAP/VDmvCwaP2yA==
 
-react-map-gl@^4.0.6:
-  version "4.0.6"
-  resolved "https://registry.yarnpkg.com/react-map-gl/-/react-map-gl-4.0.6.tgz#b6bb8b837b9d23025625232b926a093be9e74aa7"
-  integrity sha512-pWW2GZ0/xkioqRxL5ZVIR4cC7HbTTze5Fr5e6XZY+6WIcXMsY5vfh+Gu4H7O9orMizP5I+Y99Sn3/zeBEBB3pg==
+react-map-gl@^4.0.9:
+  version "4.0.9"
+  resolved "https://registry.yarnpkg.com/react-map-gl/-/react-map-gl-4.0.9.tgz#b7db0cb8b81b784ae692cb939c571acb265df6dc"
+  integrity sha512-ob57Ph9v7bvShcTUTJRsGrXE+sQrYJJVbUPMWOatOYYFGbyhyPkPrIu7X8/BSJ2zPMy0MXbkl6ihMPwzlsaggg==
   dependencies:
     "@babel/runtime" "^7.0.0"
     mapbox-gl "~0.52.0"
-    mjolnir.js "^2.0.0"
+    mjolnir.js "^2.0.3"
     prop-types "^15.5.7"
     react-virtualized-auto-sizer "^1.0.2"
     viewport-mercator-project "^6.1.0"
