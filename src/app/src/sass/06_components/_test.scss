@@ -1,0 +1,63 @@
+.heading {
+    width: 18ex;
+    margin-top: 1.6rem;
+    margin-left: 1.6rem;
+}
+
+.text {
+    width: 40rem;
+    margin-top: 1.6rem;
+    margin-left: 1.6rem;
+}
+
+.heading + .text {
+    margin-top: 4rem;
+}
+
+.heading-100 {
+    @include heading(100);
+}
+
+.heading-200 {
+    @include heading(200);
+}
+
+.heading-300 {
+    @include heading(300);
+}
+
+.heading-400 {
+    @include heading(400);
+}
+
+.heading-500 {
+    @include heading(500);
+}
+
+.heading-600 {
+    @include heading(600);
+}
+
+.heading-700 {
+    @include heading(700);
+}
+
+.text-100 {
+    @include text(100);
+}
+
+.text-200 {
+    @include text(200);
+}
+
+.text-300 {
+    @include text(300);
+}
+
+.text-400 {
+    @include text(400);
+}
+
+.text-500 {
+    @include text(500);
+}

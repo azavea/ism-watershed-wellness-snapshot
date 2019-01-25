@@ -1,0 +1,15 @@
+.p-detail {
+    .l-landing {
+        display: none;
+    }
+
+    .l-intro {
+        display: none;
+    }
+
+    .l-detail {
+        display: block;
+        width: 100vh;
+        height: 100vh;
+    }
+}

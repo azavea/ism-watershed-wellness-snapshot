@@ -1,0 +1,22 @@
+.intro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    text-align: center;
+    transform: translateX(-50%) translateY(-50%);
+
+    &__small-heading {
+        @include heading(500, $color: white, $inverted: true);
+
+        margin-bottom: $pad-compact;
+        letter-spacing: 0;
+        text-transform: none;
+    }
+
+    &__heading {
+        @include heading(700, $color: white, $inverted: true);
+
+        margin-bottom: $pad-comfortable;
+    }
+}

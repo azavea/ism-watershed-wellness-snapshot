@@ -1,0 +1,30 @@
+.banner {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    background: $brand-aqua-light;
+    border-radius: 0 0 3rem 3rem;
+    transform: translateX(-50%);
+
+    &__content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: $pad-normal $pad-comfortable $pad-normal $pad-normal;
+    }
+
+    &__text {
+        @include text(300, $color: $brand-aqua-dark);
+    }
+
+    &__icon {
+        margin-right: $pad-compact;
+        line-height: 0;
+    }
+
+    &__image {
+        width: 3rem;
+        height: auto;
+        opacity: 0.95;
+    }
+}

@@ -8,7 +8,6 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { connect } from 'react-redux';
 
 import { onChangeViewport } from './map.actions';
-import './Map.scss';
 import SensorMarker from './SensorMarker';
 import BackToMapButton from './BackToMapButton';
 import sensors from './sensors.json';
@@ -44,7 +43,7 @@ class GLMap extends Component {
 
     render() {
         return (
-            <div id='map'>
+            <div id='map' className='map'>
                 <ReactMapGL
                     height={'100%'}
                     width={'100%'}

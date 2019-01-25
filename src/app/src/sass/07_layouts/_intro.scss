@@ -1,0 +1,17 @@
+.p-intro {
+    border: 10px solid $brand-orange;
+
+    .l-landing {
+        display: none;
+    }
+
+    .l-detail {
+        display: none;
+    }
+
+    .l-intro {
+        display: block;
+        width: 100vh;
+        height: 100vh;
+    }
+}

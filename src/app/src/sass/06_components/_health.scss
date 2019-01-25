@@ -1,0 +1,85 @@
+.health {
+    &__heading {
+        @include text(500);
+    }
+
+    &__illustration {
+        position: relative;
+        width: 100%;
+        height: 40vh;
+        margin: 0 0 $pad-compact;
+
+        &::after {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 0;
+            content: "";
+            border-image: url(../img/wave.svg) 100% 0 0 0 fill / auto repeat;
+        }
+    }
+
+    &__level {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba($black, 0.25);
+    }
+
+    &__description {
+        @include text(300);
+    }
+
+    &__button {
+        position: absolute;
+        top: -1rem;
+        right: -1rem;
+        z-index: 1;
+    }
+
+    &--positive {
+        .health__illustration {
+            background: $brand-aqua;
+        }
+
+        .health__heading {
+            color: $brand-aqua;
+        }
+
+        .health__level {
+            top: 20%;
+        }
+    }
+
+    &--warning {
+        .health__illustration {
+            background: $brand-yellow;
+        }
+
+        .health__heading {
+            color: $brand-yellow;
+        }
+
+        .health__level {
+            top: 40%;
+        }
+    }
+
+    &--negative {
+        .health__illustration {
+            background: $brand-red;
+        }
+
+        .health__heading {
+            color: $brand-red;
+        }
+
+        .health__level {
+            top: 80%;
+        }
+    }
+}

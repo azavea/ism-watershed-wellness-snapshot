@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 
 import GLMap from './Map';
-import './App.scss';
 
 class App extends Component {
     render() {
         return (
-            <div className='App'>
+            <div className='main'>
                 <GLMap />
             </div>
         );

@@ -1,0 +1,47 @@
+.section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: $pad-comfortable $pad-spacious;
+
+    &__content {
+        flex: 0 1 60%;
+    }
+
+    &__illustration {
+        flex: 0 1 40%;
+        max-width: 30rem;
+    }
+
+    &__title {
+        @include heading(400, $black);
+
+        margin-bottom: $pad-small;
+    }
+
+    &__description {
+        @include text(200, $gray-600);
+
+        margin-bottom: $pad-medium;
+    }
+
+    &__body {
+        @include text(300, $gray-800);
+    }
+
+    &:nth-child(odd) {
+        background: $gray-100;
+
+        .section__illustration {
+            margin-left: $pad-compact;
+        }
+    }
+
+    &:nth-child(even) {
+        flex-direction: row-reverse;
+
+        .section__illustration {
+            margin-right: $pad-normal;
+        }
+    }
+}
