@@ -7,7 +7,7 @@ import ReactMapGL, {
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { connect } from 'react-redux';
 
-import { onChangeViewport } from './map.actions';
+import { updateViewport } from './map.actions';
 import SensorMarker from './SensorMarker';
 import BackToMapButton from './BackToMapButton';
 import Header from './Header';
@@ -52,8 +52,6 @@ class GLMap extends Component {
                 </div>
                 <div id='map' className='map'>
                     <ReactMapGL
-                        height={'93vh'}
-                        width={'100vw'}
                         {...this.props.mapstate}
                         onViewportChange={this.props.updateViewport}
                         mapboxApiAccessToken={
@@ -85,14 +83,14 @@ class GLMap extends Component {
 
 function mapStateToProps(state) {
     return {
-        mapstate: state.map.viewport.toJS(),
+        mapstate: state.map.viewport,
         showBackToMapButton: state.map.isBackToMapButtonVisible,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        updateViewport: viewport => dispatch(onChangeViewport(viewport)),
+        updateViewport: viewport => updateViewport(viewport),
     };
 }
 

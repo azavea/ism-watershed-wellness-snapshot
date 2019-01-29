@@ -8,12 +8,12 @@ import './sass/main.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import * as appActions from './app.actions';
-import { toggleBackToMapButton } from './map.actions';
+import * as mapActions from './map.actions';
 import configureStore from './store';
 
 const store = configureStore();
 assignAll(appActions, store);
-assignAll([toggleBackToMapButton], store);
+assignAll(mapActions, store);
 
 const renderWithHotReloading = Component => {
     return ReactDOM.render(
