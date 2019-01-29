@@ -4,15 +4,15 @@ import { assignAll } from 'redux-act';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import './index.css';
+import './sass/main.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import * as actions from './actions';
+import * as appActions from './app.actions';
 import { toggleBackToMapButton } from './map.actions';
 import configureStore from './store';
 
 const store = configureStore();
-assignAll(actions, store);
+assignAll(appActions, store);
 assignAll([toggleBackToMapButton], store);
 
 const renderWithHotReloading = Component => {

@@ -1,0 +1,16 @@
+<svg width="60px" height="72px" viewBox="0 0 60 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <path d="M26,62.4755859 C40.3594035,62.4755859 52,51.1168866 52,37.1052208 C52,27.7641103 43.3333333,15.3957034 26,0 C8.66666667,15.3957034 0,27.7641103 0,37.1052208 C0,51.1168866 11.6405965,62.4755859 26,62.4755859 Z" id="path-1"></path>
+    </defs>
+    <g id="Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Home" transform="translate(-1017.000000, -88.000000)" fill-rule="nonzero">
+            <g id="Poor" transform="translate(1021.000000, 92.000000)">
+                <g id="Oval" transform="translate(26.000000, 31.237793) rotate(-180.000000) translate(-26.000000, -31.237793) ">
+                    <use fill="#DD6C26" xlink:href="#path-1"></use>
+                    <path stroke="#DD6C26" stroke-width="4" d="M26,64.4755859 C10.5468515,64.4755859 -2,52.2325781 -2,37.1052208 C-2,27.0122404 6.93891176,14.255306 24.6718365,-1.49531989 L26,-2.6750129 L27.3281635,-1.49531989 C45.0610882,14.255306 54,27.0122404 54,37.1052208 C54,52.2325781 41.4531485,64.4755859 26,64.4755859 Z"></path>
+                    <use stroke="#FFFFFF" stroke-width="1" xlink:href="#path-1"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

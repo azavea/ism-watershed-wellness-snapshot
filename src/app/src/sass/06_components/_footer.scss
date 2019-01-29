@@ -1,0 +1,30 @@
+.footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: $black;
+    z-index: 1;
+
+    &__content {
+        display: flex;
+        align-items: center;
+        padding: $pad-compact $pad-medium;
+    }
+
+    &__text {
+        @include text(200, $color: $brand-green-light, $inverted: true);
+    }
+
+    &__icon {
+        margin-right: $pad-compact;
+        padding: 0 0.85rem;
+        background: rgba($brand-green, 0.3);
+        border-radius: 2rem;
+    }
+
+    &__image {
+        width: 1.25rem;
+        height: auto;
+    }
+}

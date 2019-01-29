@@ -1,0 +1,20 @@
+.map {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: $brand-green-dark;
+}
+
+.p-intro .map {
+    z-index: -1;
+}
+
+.mapboxgl-ctrl-compass {
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
+  border-radius: 20px;
+  border: 1px solid #D3ECEE !important;
+}

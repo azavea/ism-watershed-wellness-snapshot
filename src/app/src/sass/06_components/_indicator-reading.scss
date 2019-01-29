@@ -1,0 +1,45 @@
+.indicator-reading {
+    position: relative;
+
+    &__fish {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        animation: fishBouncing 2s ease-in infinite;
+    }
+
+    &__reading {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        margin-top: $pad-normal;
+        transform: translateX(-50%) translateY(-50%);
+    }
+
+    &__background {
+        width: 100%;
+        height: auto;
+    }
+
+    &--positive {
+        .indicator-reading__reading {
+            @include text(500, $color: $brand-aqua-dark);
+            @include font-weight(bold);
+        }
+    }
+
+    &--warning {
+        .indicator-reading__reading {
+            @include text(500, $color: $brand-yellow-dark);
+            @include font-weight(bold);
+        }
+    }
+
+    &--negative {
+        .indicator-reading__reading {
+            @include text(500, $color: $brand-red-dark);
+            @include font-weight(bold);
+        }
+    }
+}
