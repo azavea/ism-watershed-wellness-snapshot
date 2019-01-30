@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import { updateViewport } from './map.actions';
 import SensorMarker from './SensorMarker';
 import BackToMapButton from './BackToMapButton';
-import sensors from './sensors.json';
 import { toggleBackToMapButton } from './map.actions';
 
 class GLMap extends Component {
@@ -34,6 +33,7 @@ class GLMap extends Component {
             >
                 <SensorMarker
                     sensor={sensor}
+                    selectedSensor={this.props.selectedSensor}
                     size={50}
                     handleOnClick={this.goToLocation}
                 />
@@ -57,7 +57,7 @@ class GLMap extends Component {
                     scrollZoom={false}
                 >
                     <NavigationControl showZoom={false} />
-                    {Object.values(sensors.features).map(
+                    {Object.values(this.props.sensors.features).map(
                         this.renderCityMarkers
                     )}
                 </ReactMapGL>
@@ -73,6 +73,8 @@ function mapStateToProps(state) {
     return {
         mapstate: state.map.viewport,
         showBackToMapButton: state.map.isBackToMapButtonVisible,
+        sensors: state.map.sensors,
+        selectedSensor: state.app.selectedSensor,
     };
 }
 

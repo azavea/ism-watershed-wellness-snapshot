@@ -18,3 +18,20 @@
   border-radius: 20px;
   border: 1px solid #D3ECEE !important;
 }
+
+.p-landing {
+  .mapboxgl-ctrl-bottom-left {
+    bottom: 47px;
+  }
+
+  .mapboxgl-ctrl-bottom-right {
+    bottom: 47px;
+  }
+}
+
+.p-detail {
+  .mapboxgl-ctrl-bottom-right {
+    right: inherit;
+    left: 285px;
+  }
+}
