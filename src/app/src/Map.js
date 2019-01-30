@@ -10,8 +10,6 @@ import { connect } from 'react-redux';
 import { updateViewport } from './map.actions';
 import SensorMarker from './SensorMarker';
 import BackToMapButton from './BackToMapButton';
-import Header from './Header';
-import Footer from './Footer';
 import sensors from './sensors.json';
 import { toggleBackToMapButton } from './map.actions';
 
@@ -45,38 +43,28 @@ class GLMap extends Component {
 
     render() {
         return (
-            <>
-                <div className='main l-landing'>
-                    <Header />
-                    <Footer />
-                </div>
-                <div id='map' className='map'>
-                    <ReactMapGL
-                        {...this.props.mapstate}
-                        onViewportChange={this.props.updateViewport}
-                        mapboxApiAccessToken={
-                            process.env.REACT_APP_MAPBOX_API_KEY
-                        }
-                        mapStyle={
-                            'mapbox://styles/alash/cjqy7v5yn04ra2rmhy72tvnhc'
-                        }
-                        interactive={false}
-                        doubleClickZoom={false}
-                        dragPan={false}
-                        dragRotate={false}
-                        touchZoomRotate={false}
-                        scrollZoom={false}
-                    >
-                        <NavigationControl showZoom={false} />
-                        {Object.values(sensors.features).map(
-                            this.renderCityMarkers
-                        )}
-                    </ReactMapGL>
-                    {this.props.showBackToMapButton ? (
-                        <BackToMapButton handleOnClick={this.goToLocation} />
-                    ) : null}
-                </div>
-            </>
+            <div id='map' className='map'>
+                <ReactMapGL
+                    {...this.props.mapstate}
+                    onViewportChange={this.props.updateViewport}
+                    mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
+                    mapStyle={'mapbox://styles/alash/cjqy7v5yn04ra2rmhy72tvnhc'}
+                    interactive={false}
+                    doubleClickZoom={false}
+                    dragPan={false}
+                    dragRotate={false}
+                    touchZoomRotate={false}
+                    scrollZoom={false}
+                >
+                    <NavigationControl showZoom={false} />
+                    {Object.values(sensors.features).map(
+                        this.renderCityMarkers
+                    )}
+                </ReactMapGL>
+                {this.props.showBackToMapButton ? (
+                    <BackToMapButton handleOnClick={this.goToLocation} />
+                ) : null}
+            </div>
         );
     }
 }

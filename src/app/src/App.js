@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import GLMap from './Map';
 import Intro from './Intro';
+import Header from './Header';
+import Footer from './Footer';
 
 class App extends Component {
     render() {
@@ -14,6 +16,10 @@ class App extends Component {
         return (
             <div className={containerClassName}>
                 {isIntroVisible ? <Intro /> : null}
+                <div className='main l-landing'>
+                    <Header />
+                    <Footer />
+                </div>
                 <GLMap />
             </div>
         );
