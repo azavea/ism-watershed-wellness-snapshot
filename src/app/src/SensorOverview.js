@@ -1,8 +1,10 @@
 import React from 'react';
 
 import listUl from './img/list-ul.svg';
+import SensorDetails from './SensorDetails';
+import { showSensorModal } from './app.actions';
 
-export default function SensorOverview({ sensor }) {
+export default function SensorOverview({ sensor, isSensorModalDisplayed }) {
     return (
         <div className='main l-detail l-detail--tinicum'>
             <div className='sidebar'>
@@ -26,7 +28,7 @@ export default function SensorOverview({ sensor }) {
                                 type='button'
                                 id='openModal'
                                 className='health__button button button--secondary button--pulsate button--icon'
-                                data-micromodal-trigger='modal-1'
+                                onClick={showSensorModal}
                             >
                                 <img
                                     src={listUl}
@@ -34,6 +36,9 @@ export default function SensorOverview({ sensor }) {
                                     className='button__image'
                                 />
                             </button>
+                            {isSensorModalDisplayed ? (
+                                <SensorDetails sensor={sensor} />
+                            ) : null}
                             <div className='health__level' />
                         </div>
                         <p className='health__description'>

@@ -10,8 +10,13 @@ import SensorOverview from './SensorOverview';
 
 class App extends Component {
     render() {
-        const { isIntroVisible, selectedSensor, sensors } = this.props;
-        const containerClassName = isIntroVisible
+        const {
+            isIntroVisible,
+            selectedSensor,
+            sensors,
+            isSensorModalDisplayed,
+        } = this.props;
+        let containerClassName = isIntroVisible
             ? 'main p-intro'
             : selectedSensor
             ? 'main p-detail'
@@ -20,16 +25,23 @@ class App extends Component {
             return f.properties.Location === selectedSensor;
         });
 
+        if (isSensorModalDisplayed) {
+            containerClassName += ' modal-is-open';
+        }
+
         return (
-            <div className={containerClassName}>
+            <div id='app-container' className={containerClassName}>
                 {isIntroVisible ? <Intro /> : null}
                 <div className='main l-landing'>
                     <Header />
                     <Footer />
                 </div>
                 <GLMap />
-                {this.props.selectedSensor !== null ? (
-                    <SensorOverview sensor={sensorData} />
+                {selectedSensor !== null ? (
+                    <SensorOverview
+                        sensor={sensorData}
+                        isSensorModalDisplayed={isSensorModalDisplayed}
+                    />
                 ) : null}
             </div>
         );
@@ -41,6 +53,7 @@ function mapStateToProps(state) {
         isIntroVisible: state.app.isIntroVisible,
         selectedSensor: state.app.selectedSensor,
         sensors: state.map.sensors,
+        isSensorModalDisplayed: state.app.isSensorModalDisplayed,
     };
 }
 
