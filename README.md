@@ -53,6 +53,7 @@ Rebuild Docker images and run application.
 | `setup`        | Install project dependencies                                  |
 | `test`         | Run unit tests                                                |
 | `update`       | Update project dependences                                    |
+| `analyze`      | Analyze the app bundle and output results in JSON             |
 
 ### Adding NPM Packages
 
