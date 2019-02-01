@@ -4865,11 +4865,6 @@ immutability-helper@^2.8.1:
   dependencies:
     invariant "^2.2.0"
 
-immutable@^3.8.1:
-  version "3.8.2"
-  resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
-  integrity sha1-wkOZUUVbs5kT2vKBN28VMOEErfM=
-
 import-cwd@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/import-cwd/-/import-cwd-2.1.0.tgz#aa6cf36e722761285cb371ec6519f53e2435b0a9"
@@ -8745,13 +8740,6 @@ redux-logger@^3.0.6:
   integrity sha1-91VZZvMJjzyIYExEnPC69XeCdL8=
   dependencies:
     deep-diff "^0.3.5"
-
-redux-map-gl@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/redux-map-gl/-/redux-map-gl-0.1.0.tgz#d2bec142d5c82bf67532b941c48197b4d3a350d8"
-  integrity sha1-0r7BQtXIK/Z1MrlBxIGXtNOjUNg=
-  dependencies:
-    immutable "^3.8.1"
 
 redux-thunk@^2.3.0:
   version "2.3.0"
