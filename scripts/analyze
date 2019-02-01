@@ -1,0 +1,42 @@
+#!/bin/bash
+
+set -e
+
+if [[ -n "${ISM_DEBUG}" ]]; then
+    set -x
+fi
+
+function usage() {
+    echo -n "Usage: $(basename "$0")
+Analyze the JS bundle using source-map-explorer.
+Options:
+    <no options>    Analyze app bundle
+    --vendor        Analyze vendor bundle
+"
+}
+
+if [ "${BASH_SOURCE[0]}" = "${0}" ]
+then
+    if [ "${1:-}" = "--help" ]
+    then
+        usage
+    else
+        if [ -f /.dockerenv ]; then
+            FORMAT=""
+        else
+            FORMAT="--json"
+        fi
+
+        if [ "${1:-}" = "--vendor" ]
+        then
+            BUNDLE_NAME="1"
+        else
+            BUNDLE_NAME="main"
+        fi
+
+        docker-compose -f docker-compose.yml run --rm \
+            -e BUNDLE_NAME="${BUNDLE_NAME}" \
+            -e FORMAT="${FORMAT}" \
+            app yarn run analyze
+    fi
+fi
