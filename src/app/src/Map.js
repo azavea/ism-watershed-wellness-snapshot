@@ -53,7 +53,8 @@ class GLMap extends Component {
                     doubleClickZoom={false}
                     dragPan={false}
                     dragRotate={false}
-                    touchZoomRotate={false}
+                    touchRotate={false}
+                    touchZoom={false}
                     scrollZoom={false}
                 >
                     <NavigationControl showZoom={false} />
