@@ -18,7 +18,7 @@ export default function SensorMarker(props) {
     // Makes sure the marker is centered in the visible
     // portion of the map, since half of the map is
     // covered by the sensor sidebar.
-    const adj = 0.0065;
+    const adj = 0.005;
 
     const handleOnClick = () => {
         if (!selectedSensor) {
