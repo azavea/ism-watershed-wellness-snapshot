@@ -21,17 +21,18 @@
 
 .p-landing {
   .mapboxgl-ctrl-bottom-left {
-    bottom: 47px;
+    bottom: 78px;
   }
 
   .mapboxgl-ctrl-bottom-right {
-    bottom: 47px;
+    bottom: 78px;
   }
 }
 
 .p-detail {
   .mapboxgl-ctrl-bottom-right {
     right: inherit;
-    left: 285px;
+    left: 160px;
+    bottom: 30px;
   }
 }
