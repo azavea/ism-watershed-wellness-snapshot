@@ -6,6 +6,7 @@ import ReactMapGL, {
 } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { connect } from 'react-redux';
+import mapboxgl from 'mapbox-gl';
 
 import { updateViewport } from './map.actions';
 import SensorMarker from './SensorMarker';
@@ -13,6 +14,17 @@ import BackToMapButton from './BackToMapButton';
 import { toggleBackToMapButton } from './map.actions';
 
 class GLMap extends Component {
+    constructor() {
+        super();
+
+        this.mapRef = React.createRef();
+    }
+
+    componentDidMount() {
+        const map = this.mapRef.current.getMap();
+        map.addControl(new mapboxgl.AttributionControl({ compact: true }));
+    }
+
     goToLocation = options => {
         toggleBackToMapButton();
 
@@ -49,6 +61,7 @@ class GLMap extends Component {
             <div id='map' className='map'>
                 <ReactMapGL
                     {...this.props.mapstate}
+                    ref={this.mapRef}
                     onViewportChange={this.props.updateViewport}
                     mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
                     mapStyle={
@@ -61,6 +74,7 @@ class GLMap extends Component {
                     touchRotate={false}
                     touchZoom={false}
                     scrollZoom={false}
+                    attributionControl={false}
                 >
                     <NavigationControl showZoom={false} />
                     {Object.values(this.props.sensors.features).map(
