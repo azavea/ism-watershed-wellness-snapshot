@@ -30,6 +30,9 @@ class GLMap extends Component {
                 key={`marker-${index}`}
                 longitude={sensor.geometry.coordinates[0]}
                 latitude={sensor.geometry.coordinates[1]}
+                anchor='bottom'
+                offsetLeft={-40}
+                offsetTop={-108}
             >
                 <SensorMarker
                     sensor={sensor}
