@@ -7,12 +7,14 @@ import {
     deselectSensor,
     showSensorModal,
     hideSensorModal,
+    setSensorData,
 } from './app.actions';
 
 const initialAppState = {
     isIntroVisible: true,
     selectedSensor: null,
     isSensorModalDisplayed: false,
+    sensorData: null,
 };
 
 const appReducer = createReducer(
@@ -45,6 +47,12 @@ const appReducer = createReducer(
             update(state, {
                 isSensorModalDisplayed: {
                     $set: true,
+                },
+            }),
+        [setSensorData]: (state, payload) =>
+            update(state, {
+                sensorData: {
+                    $set: payload,
                 },
             }),
     },

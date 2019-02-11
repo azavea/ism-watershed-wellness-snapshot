@@ -8,13 +8,17 @@ import Header from './Header';
 import Footer from './Footer';
 import SensorOverview from './SensorOverview';
 
+import { setSensorData } from './app.actions';
+
+import { resolveRiverGaugeData } from './sensorUtils';
+
 class App extends Component {
     render() {
         const {
             isIntroVisible,
             selectedSensor,
             sensors,
-            isSensorModalDisplayed,
+            isSensorModalDisplayed
         } = this.props;
         let containerClassName = isIntroVisible
             ? 'main p-intro'
@@ -24,6 +28,8 @@ class App extends Component {
         const sensorData = find(sensors.features, f => {
             return f.properties.Location === selectedSensor;
         });
+
+        resolveRiverGaugeData('01438500').then(setSensorData);
 
         if (isSensorModalDisplayed) {
             containerClassName += ' modal-is-open';
