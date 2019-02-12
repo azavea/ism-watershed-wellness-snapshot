@@ -10,7 +10,7 @@ import SensorOverview from './SensorOverview';
 
 import { setSensorData } from './app.actions';
 
-import { resolveRiverGaugeData } from './sensorUtils';
+import { resolveRiverGaugeCsvData, resolveRiverGaugeApiData } from './sensorUtils';
 
 class App extends Component {
     render() {
@@ -29,7 +29,7 @@ class App extends Component {
             return f.properties.Location === selectedSensor;
         });
 
-        resolveRiverGaugeData('01438500').then(setSensorData);
+        resolveRiverGaugeCsvData('01438500').then(setSensorData);
 
         if (isSensorModalDisplayed) {
             containerClassName += ' modal-is-open';
