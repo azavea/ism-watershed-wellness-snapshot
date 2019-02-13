@@ -9,27 +9,29 @@ import Footer from './Footer';
 import SensorOverview from './SensorOverview';
 
 import { setSensorData } from './app.actions';
-import { POLLING_INTERVAL } from './constants';
+import { POLLING_INTERVAL, SENSORS } from './constants';
 
-import { makeRiverGaugeRequest, parseRiverGaugeApiData, parseRiverGaugeCsvData } from './sensorUtils';
+import {
+    makeRiverGaugeRequest,
+    parseRiverGaugeApiData,
+    parseRiverGaugeCsvData,
+} from './sensorUtils';
 
 class App extends Component {
     componentDidMount() {
         // Poll for new sensor data immediately and on a timed cycle thereafter
         setInterval(function pollData() {
             (async () => {
-                const [wissahickon, tinicum, delaware] = await Promise.all([
-                    makeRiverGaugeRequest('01474000', true),
-                    makeRiverGaugeRequest('01475548', true),
-                    makeRiverGaugeRequest('01438500')
-                ]);
-
-                const allSensorData = Object.assign({},
-                    parseRiverGaugeApiData('01474000', wissahickon),
-                    parseRiverGaugeApiData('01475548', tinicum),
-                    parseRiverGaugeCsvData('01438500', delaware)
+                const requests = SENSORS.map(sensor =>
+                    makeRiverGaugeRequest(sensor.id, sensor.apiAccess)
                 );
-
+                const responses = await Promise.all(requests);
+                const allSensorData = SENSORS.reduce((acc, sensor, idx) => (
+                    Object.assign(acc, sensor.apiAccess
+                        ? parseRiverGaugeApiData(sensor.id, responses[idx])
+                        : parseRiverGaugeCsvData(sensor.id, responses[idx])
+                    )
+                ), {});
                 setSensorData(allSensorData);
             })();
             return pollData;
