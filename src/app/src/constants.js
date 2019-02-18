@@ -12,34 +12,9 @@ export const VARIABLES = [
     TURBIDITY,
 ];
 
-export const VARIABLE_DESCRIPTIONS = {
-    [TEMPERATURE]: 'Temperature, water, degrees Celsius',
-    [OXYGEN]: 'Dissolved oxygen, water, unfiltered, milligrams per liter',
-    [PH]: 'pH, water, unfiltered, field, standard units',
-    [TURBIDITY]: 'Turbidity, water, unfiltered, monochrome near infra-red LED light, 780-900 nm, detection angle 90 +-2.5 degrees, formazin nephelometric units (FNU)',
-};
-
 export const VARIABLE_CODES = {
-    [TEMPERATURE]: 'p00010',
-    [OXYGEN]: 'p00300',
-    [PH]: 'p00400',
-    [TURBIDITY]: 'p63680',
+    [TEMPERATURE]: '00010',
+    [OXYGEN]: '00300',
+    [PH]: '00400',
+    [TURBIDITY]: '63680',
 };
-
-export const SENSORS = [
-    {
-        name: 'Wissahickon',
-        id: '01474000',
-        apiAccess: true,
-    },
-    {
-        name: 'Tinicum',
-        id: '01475548',
-        apiAccess: true,
-    },
-    {
-        name: 'Delaware',
-        id: '01438500',
-        apiAccess: false,
-    },
-];

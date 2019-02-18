@@ -9,7 +9,8 @@ import Footer from './Footer';
 import SensorOverview from './SensorOverview';
 
 import { setSensorData } from './app.actions';
-import { POLLING_INTERVAL, SENSORS } from './constants';
+import { POLLING_INTERVAL } from './constants';
+import SENSORS from './sensors';
 
 import {
     makeRiverGaugeRequest,
@@ -20,18 +21,22 @@ import {
 class App extends Component {
     componentDidMount() {
         // Poll for new sensor data immediately and on a timed cycle thereafter
+        const sensors = SENSORS.features;
         setInterval(function pollData() {
             (async () => {
-                const requests = SENSORS.map(sensor =>
-                    makeRiverGaugeRequest(sensor.id, sensor.apiAccess)
+                const requests = sensors.map(sensor => {
+                        const { properties: { Id, ApiAccess } } = sensor;
+                        return makeRiverGaugeRequest(Id, ApiAccess);
+                    }
                 );
                 const responses = await Promise.all(requests);
-                const allSensorData = SENSORS.reduce((acc, sensor, idx) => (
-                    Object.assign(acc, sensor.apiAccess
-                        ? parseRiverGaugeApiData(sensor.id, responses[idx])
-                        : parseRiverGaugeCsvData(sensor.id, responses[idx])
+                const allSensorData = sensors.reduce((acc, sensor, idx) => {
+                    const { properties: { Id, ApiAccess } } = sensor;
+                    return Object.assign(acc, ApiAccess
+                        ? parseRiverGaugeApiData(Id, responses[idx])
+                        : parseRiverGaugeCsvData(Id, responses[idx])
                     )
-                ), {});
+                }, {});
                 setSensorData(allSensorData);
             })();
             return pollData;
