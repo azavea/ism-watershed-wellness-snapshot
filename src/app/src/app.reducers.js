@@ -14,7 +14,7 @@ const initialAppState = {
     isIntroVisible: true,
     selectedSensor: null,
     isSensorModalDisplayed: false,
-    sensorData: null,
+    sensorData: {},
 };
 
 const appReducer = createReducer(
@@ -52,7 +52,9 @@ const appReducer = createReducer(
         [setSensorData]: (state, payload) =>
             update(state, {
                 sensorData: {
-                    $set: payload,
+                    [payload.id]: {
+                        $set: payload,
+                    }
                 },
             }),
     },

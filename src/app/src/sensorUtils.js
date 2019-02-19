@@ -41,9 +41,9 @@ export function parseRiverGaugeApiData(id, apiData) {
                 : Object.assign(acc, {[variable]: 0 });
         }
         return acc;
-    }, {});
+    }, { id });
 
-    return { [id]: extractedVariableData };
+    return extractedVariableData;
 }
 
 export function parseRiverGaugeCsvData(id, csvString) {
@@ -57,7 +57,7 @@ export function parseRiverGaugeCsvData(id, csvString) {
     const extractedVariableData = VARIABLES.reduce((acc, variable) => {
         const code = `p${VARIABLE_CODES[variable]}`;
         return Object.assign(acc, {[variable]: dataRow[code] || 0 });
-    }, {});
+    }, { id });
 
-    return { [id]: extractedVariableData };
+    return extractedVariableData;
 }

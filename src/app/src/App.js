@@ -8,39 +8,29 @@ import Header from './Header';
 import Footer from './Footer';
 import SensorOverview from './SensorOverview';
 
-import { setSensorData } from './app.actions';
 import { POLLING_INTERVAL } from './constants';
 import SENSORS from './sensors';
 
-import {
-    makeRiverGaugeRequest,
-    parseRiverGaugeApiData,
-    parseRiverGaugeCsvData,
-} from './sensorUtils';
+import { pollSensor } from './sensor.actions';
+
 
 class App extends Component {
     componentDidMount() {
         // Poll for new sensor data immediately and on a timed cycle thereafter
+        const {
+            dispatch,
+        } = this.props;
         const sensors = SENSORS.features;
-        setInterval(function pollData() {
-            (async () => {
-                const requests = sensors.map(sensor => {
-                        const { properties: { Id, ApiAccess } } = sensor;
-                        return makeRiverGaugeRequest(Id, ApiAccess);
-                    }
-                );
-                const responses = await Promise.all(requests);
-                const allSensorData = sensors.reduce((acc, sensor, idx) => {
-                    const { properties: { Id, ApiAccess } } = sensor;
-                    return Object.assign(acc, ApiAccess
-                        ? parseRiverGaugeApiData(Id, responses[idx])
-                        : parseRiverGaugeCsvData(Id, responses[idx])
-                    )
-                }, {});
-                setSensorData(allSensorData);
-            })();
-            return pollData;
-        }(), POLLING_INTERVAL);
+        this.pollSensorIntervalIds = sensors.map(sensor => setInterval(
+            function fetchSensorData () {
+                dispatch(pollSensor(sensor));
+                return fetchSensorData;
+            }()
+        , POLLING_INTERVAL));
+    }
+
+    componentWillUnmount() {
+        this.pollSensorIntervalIds.forEach(id => clearInterval(id));
     }
 
     render() {
@@ -88,6 +78,7 @@ function mapStateToProps(state) {
         selectedSensor: state.app.selectedSensor,
         sensors: state.map.sensors,
         isSensorModalDisplayed: state.app.isSensorModalDisplayed,
+        dispatch: state.app.dispatch,
     };
 }
 
