@@ -7,8 +7,7 @@ import {
 } from './constants';
 
 export function makeRiverGaugeRequest(id, isApiRequest) {
-    let commaSeparatedCodes = '';
-    Object.keys(VARIABLE_CODES).forEach(key => commaSeparatedCodes += `${VARIABLE_CODES[key]},`);
+    const commaSeparatedCodes = Object.keys(VARIABLE_CODES).reduce((acc, key) => acc.concat(`${VARIABLE_CODES[key]},`), '');
     // trailing commas break the request
     const cleanedCodes = commaSeparatedCodes.slice(0, -1);
 
@@ -52,7 +51,7 @@ export function parseRiverGaugeCsvData(id, csvString) {
     } = csvString;
 
     const parsedData = parseCsvString(data);
-    const dataRow = parsedData.data.pop();
+    const dataRow = parsedData.data.slice(-1)[0];
 
     const extractedVariableData = VARIABLES.reduce((acc, variable) => {
         const code = `p${VARIABLE_CODES[variable]}`;

@@ -21,12 +21,11 @@ class App extends Component {
             dispatch,
         } = this.props;
         const sensors = SENSORS.features;
-        this.pollSensorIntervalIds = sensors.map(sensor => setInterval(
-            function fetchSensorData () {
-                dispatch(pollSensor(sensor));
-                return fetchSensorData;
-            }()
-        , POLLING_INTERVAL));
+        const fetchSensorData = (sensor) => dispatch(pollSensor(sensor));
+        this.pollSensorIntervalIds = sensors.map(sensor => {
+            fetchSensorData(sensor);
+            return setInterval(() => fetchSensorData(sensor), POLLING_INTERVAL);
+        });
     }
 
     componentWillUnmount() {
@@ -78,7 +77,6 @@ function mapStateToProps(state) {
         selectedSensor: state.app.selectedSensor,
         sensors: state.map.sensors,
         isSensorModalDisplayed: state.app.isSensorModalDisplayed,
-        dispatch: state.app.dispatch,
     };
 }
 

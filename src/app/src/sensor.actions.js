@@ -1,4 +1,3 @@
-
 import {
     parseRiverGaugeApiData,
     parseRiverGaugeCsvData,
@@ -8,22 +7,23 @@ import {
 import {
     startPollingSensor,
     failPollingSensor,
+    completePollingSensor,
     setSensorData,
 } from './app.actions';
 
 export function pollSensor(sensor) {
-    return async (dispatch) => {
-        dispatch(startPollingSensor);
+    return async () => {
         try {
+            startPollingSensor();
             const { properties: { Id, ApiAccess } } = sensor;
             const response = await makeRiverGaugeRequest(Id, ApiAccess);
             const sensorData = ApiAccess
                 ? parseRiverGaugeApiData(Id, response)
                 : parseRiverGaugeCsvData(Id, response);
-            return dispatch(setSensorData(sensorData));
+            setSensorData(sensorData);
+            return completePollingSensor();
         } catch (e) {
-            window.console.log(e);
-            return dispatch(failPollingSensor());
+            return failPollingSensor(e);
         }
     };
 };
