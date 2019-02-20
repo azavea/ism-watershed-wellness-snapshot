@@ -8,13 +8,36 @@ import Header from './Header';
 import Footer from './Footer';
 import SensorOverview from './SensorOverview';
 
+import { POLLING_INTERVAL } from './constants';
+import SENSORS from './sensors';
+
+import { pollSensor } from './sensor.actions';
+
+
 class App extends Component {
+    componentDidMount() {
+        // Poll for new sensor data immediately and on a timed cycle thereafter
+        const {
+            dispatch,
+        } = this.props;
+        const sensors = SENSORS.features;
+        const fetchSensorData = (sensor) => dispatch(pollSensor(sensor));
+        this.pollSensorIntervalIds = sensors.map(sensor => {
+            fetchSensorData(sensor);
+            return setInterval(() => fetchSensorData(sensor), POLLING_INTERVAL);
+        });
+    }
+
+    componentWillUnmount() {
+        this.pollSensorIntervalIds.forEach(id => clearInterval(id));
+    }
+
     render() {
         const {
             isIntroVisible,
             selectedSensor,
             sensors,
-            isSensorModalDisplayed,
+            isSensorModalDisplayed
         } = this.props;
         let containerClassName = isIntroVisible
             ? 'main p-intro'
