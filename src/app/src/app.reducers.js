@@ -54,7 +54,7 @@ const appReducer = createReducer(
                 sensorData: {
                     [payload.id]: {
                         $set: payload,
-                    }
+                    },
                 },
             }),
     },

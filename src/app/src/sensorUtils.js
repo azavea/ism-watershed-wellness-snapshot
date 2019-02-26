@@ -1,13 +1,13 @@
 import axios from 'axios';
 import Papa from 'papaparse';
 
-import {
-    VARIABLES,
-    VARIABLE_CODES,
-} from './constants';
+import { VARIABLES, VARIABLE_CODES } from './constants';
 
 export function makeRiverGaugeRequest(id, isApiRequest) {
-    const commaSeparatedCodes = Object.keys(VARIABLE_CODES).reduce((acc, key) => acc.concat(`${VARIABLE_CODES[key]},`), '');
+    const commaSeparatedCodes = Object.keys(VARIABLE_CODES).reduce(
+        (acc, key) => acc.concat(`${VARIABLE_CODES[key]},`),
+        ''
+    );
     // trailing commas break the request
     const cleanedCodes = commaSeparatedCodes.slice(0, -1);
 
@@ -18,45 +18,54 @@ export function makeRiverGaugeRequest(id, isApiRequest) {
 }
 
 function parseCsvString(csvString) {
-    const data = Papa.parse(csvString, { header: true, comments: "#", dynamicTyping: true, skipEmptyLines: true });
+    const data = Papa.parse(csvString, {
+        header: true,
+        comments: '#',
+        dynamicTyping: true,
+        skipEmptyLines: true,
+    });
     return data;
 }
 
 export function parseRiverGaugeApiData(id, apiData) {
     const {
         data: {
-            value: {
-                timeSeries: data,
-            },
+            value: { timeSeries: data },
         },
     } = apiData;
 
-    const extractedVariableData = VARIABLES.reduce((acc, variable, idx) => {
-        const apiVariableData = data[idx];
-        if (apiVariableData) {
-            const sensorValue = Number(apiVariableData.values[0].value[0].value);
-            return sensorValue !== apiVariableData.variable.noDataValue
-                ? Object.assign(acc, {[variable]: sensorValue })
-                : Object.assign(acc, {[variable]: 0 });
-        }
-        return acc;
-    }, { id });
+    const extractedVariableData = VARIABLES.reduce(
+        (acc, variable, idx) => {
+            const apiVariableData = data[idx];
+            if (apiVariableData) {
+                const sensorValue = Number(
+                    apiVariableData.values[0].value[0].value
+                );
+                return sensorValue !== apiVariableData.variable.noDataValue
+                    ? Object.assign(acc, { [variable]: sensorValue })
+                    : Object.assign(acc, { [variable]: 0 });
+            }
+            return acc;
+        },
+        { id }
+    );
 
     return extractedVariableData;
 }
 
 export function parseRiverGaugeCsvData(id, csvString) {
-    const {
-        data,
-    } = csvString;
+    const { data } = csvString;
 
     const parsedData = parseCsvString(data);
     const dataRow = parsedData.data.slice(-1)[0];
 
-    const extractedVariableData = VARIABLES.reduce((acc, variable) => {
-        const code = `p${VARIABLE_CODES[variable]}`;
-        return Object.assign(acc, {[variable]: dataRow[code] || 0 });
-    }, { id });
+    const extractedVariableData = VARIABLES.reduce(
+        (acc, variable) => {
+            const code = `p${VARIABLE_CODES[variable]}`;
+            return Object.assign(acc, { [variable]: dataRow[code] || 0 });
+        },
+        { id }
+    );
 
     return extractedVariableData;
 }

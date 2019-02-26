@@ -13,15 +13,12 @@ import SENSORS from './sensors';
 
 import { pollSensor } from './sensor.actions';
 
-
 class App extends Component {
     componentDidMount() {
         // Poll for new sensor data immediately and on a timed cycle thereafter
-        const {
-            dispatch,
-        } = this.props;
+        const { dispatch } = this.props;
         const sensors = SENSORS.features;
-        const fetchSensorData = (sensor) => dispatch(pollSensor(sensor));
+        const fetchSensorData = sensor => dispatch(pollSensor(sensor));
         this.pollSensorIntervalIds = sensors.map(sensor => {
             fetchSensorData(sensor);
             return setInterval(() => fetchSensorData(sensor), POLLING_INTERVAL);
@@ -37,7 +34,7 @@ class App extends Component {
             isIntroVisible,
             selectedSensor,
             sensors,
-            isSensorModalDisplayed
+            isSensorModalDisplayed,
         } = this.props;
         let containerClassName = isIntroVisible
             ? 'main p-intro'
