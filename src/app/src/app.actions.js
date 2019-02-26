@@ -1,6 +1,7 @@
 import { createAction } from 'redux-act';
 
 import {
+    parseCsvString,
     parseRiverGaugeApiData,
     parseRiverGaugeCsvData,
     makeRiverGaugeRequest,
@@ -28,8 +29,8 @@ export function pollSensor(sensor) {
 
             const response = await makeRiverGaugeRequest(Id, ApiAccess);
             const sensorData = ApiAccess
-                ? parseRiverGaugeApiData(Id, response)
-                : parseRiverGaugeCsvData(Id, response);
+                ? parseRiverGaugeApiData(Id, response.data.value.timeSeries)
+                : parseRiverGaugeCsvData(Id, parseCsvString(response.data));
 
             completePollingSensor(sensorData);
         } catch (e) {

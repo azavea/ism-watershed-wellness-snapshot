@@ -17,23 +17,18 @@ export function makeRiverGaugeRequest(id, isApiRequest) {
     return axios.get(url);
 }
 
-function parseCsvString(csvString) {
+export function parseCsvString(csvString) {
     const data = Papa.parse(csvString, {
         header: true,
         comments: '#',
         dynamicTyping: true,
         skipEmptyLines: true,
     });
-    return data;
+
+    return data.data;
 }
 
-export function parseRiverGaugeApiData(id, apiData) {
-    const {
-        data: {
-            value: { timeSeries: data },
-        },
-    } = apiData;
-
+export function parseRiverGaugeApiData(id, data) {
     const extractedVariableData = VARIABLES.reduce(
         (acc, variable, idx) => {
             const apiVariableData = data[idx];
@@ -53,11 +48,8 @@ export function parseRiverGaugeApiData(id, apiData) {
     return extractedVariableData;
 }
 
-export function parseRiverGaugeCsvData(id, csvString) {
-    const { data } = csvString;
-
-    const parsedData = parseCsvString(data);
-    const dataRow = parsedData.data.slice(-1)[0];
+export function parseRiverGaugeCsvData(id, data) {
+    const dataRow = data.slice(-1)[0];
 
     const extractedVariableData = VARIABLES.reduce(
         (acc, variable) => {
