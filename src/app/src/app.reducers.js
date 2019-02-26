@@ -7,7 +7,7 @@ import {
     deselectSensor,
     showSensorModal,
     hideSensorModal,
-    setSensorData,
+    completePollingSensor,
 } from './app.actions';
 
 const initialAppState = {
@@ -49,7 +49,7 @@ const appReducer = createReducer(
                     $set: true,
                 },
             }),
-        [setSensorData]: (state, payload) =>
+        [completePollingSensor]: (state, payload) =>
             update(state, {
                 sensorData: {
                     [payload.id]: {
