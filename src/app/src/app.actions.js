@@ -21,7 +21,7 @@ export const completePollingSensor = createAction(
 export const updateSensorRatings = createAction('Update sensor ratings');
 
 export function pollSensor(sensor) {
-    return async () => {
+    return async (_, getState) => {
         try {
             startPollingSensor();
 
@@ -30,14 +30,33 @@ export function pollSensor(sensor) {
             } = sensor;
 
             const response = await makeRiverGaugeRequest(Id, ApiAccess);
-            const sensorData = ApiAccess
+            let sensorData = ApiAccess
                 ? parseRiverGaugeApiData(Id, response.data.value.timeSeries)
                 : parseRiverGaugeCsvData(Id, parseCsvString(response.data));
 
+            // Use quarterly data feed if live sensors send back throw away values -99999
+            if (Object.keys(sensorData).length === 1) {
+                const response = await makeRiverGaugeRequest(Id);
+                sensorData = parseRiverGaugeCsvData(Id, response);
+            }
             completePollingSensor(sensorData);
-            updateSensorRatings(transformSensorDataToRatings(sensorData));
+            return updateSensorRatings(transformSensorDataToRatings(sensorData));
         } catch (e) {
-            failPollingSensor(e);
+            // Fall back to default values if no previously set sensor data,
+            // and API or quarterly data requests fail
+            const {
+                properties: { Id },
+                defaultValues
+            } = sensor;
+
+            const {
+                app: { sensorData },
+            } = getState();
+
+            if (!sensorData[Id]) {
+                completePollingSensor(defaultValues);
+            }
+            return failPollingSensor(e);
         }
     };
 }
