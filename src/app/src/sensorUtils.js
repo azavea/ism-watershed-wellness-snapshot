@@ -66,14 +66,18 @@ export function parseRiverGaugeCsvData(id, data) {
     }
     const dataRow = data.slice(-1)[0];
     const timestamp = new Date(`${dataRow.sample_dt} ${dataRow.sample_start_time_datum_cd}`);
+    // API data sends variable data in the same order mirrored in VARIABLES
+    const extractedVariableData = VARIABLES.reduce((acc, variable, idx) => {
+        const apiVariableData = data[idx];
+        if (apiVariableData) {
+            const sensorValue = Number(apiVariableData.values[0].value[0].value);
+            return sensorValue !== apiVariableData.variable.noDataValue
+                ? Object.assign(acc, {[variable]: sensorValue })
+                : acc;
+        }
+        return acc;
+    }, { id, timestamp });
 
-    const extractedVariableData = VARIABLES.reduce(
-        (acc, variable) => {
-            const code = `p${VARIABLE_CODES[variable]}`;
-            return Object.assign(acc, { [variable]: dataRow[code] || 0 });
-        },
-        { id, timestamp }
-    );
     return extractedVariableData;
 }
 

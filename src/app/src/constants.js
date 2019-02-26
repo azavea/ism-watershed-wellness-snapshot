@@ -5,8 +5,10 @@ export const OXYGEN = 'OXYGEN';
 export const PH = 'PH';
 export const TURBIDITY = 'TURBIDITY';
 
+// Explicitly ordered to match the rigid ordering of the live sensor API response
 export const VARIABLES = [TEMPERATURE, OXYGEN, PH, TURBIDITY];
 
+// Variables are rather named by USGS parameter code in the quarterly CSV data
 export const VARIABLE_CODES = {
     [TEMPERATURE]: '00010',
     [OXYGEN]: '00300',

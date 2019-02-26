@@ -39,7 +39,8 @@ export function pollSensor(sensor) {
                 ? parseRiverGaugeApiData(Id, response.data.value.timeSeries)
                 : parseRiverGaugeCsvData(Id, parseCsvString(response.data));
 
-            // Use quarterly data feed if live sensor returns no-value data, -99999
+            // Live sensor data parsing will returns {id, timestamp} if the response
+            // has data. In that case, use quarterly CSV data
             if (ApiAccess && Object.keys(sensorResponseData).length === 2) {
                 const response = await makeRiverGaugeRequest(Id);
                 sensorResponseData = parseRiverGaugeCsvData(Id, response);
