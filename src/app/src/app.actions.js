@@ -22,41 +22,46 @@ export const updateSensorRatings = createAction('Update sensor ratings');
 
 export function pollSensor(sensor) {
     return async (_, getState) => {
+        const {
+            properties: { Id, ApiAccess },
+            defaultValues
+        } = sensor;
+
+        const {
+            app: { sensorData },
+        } = getState();
+
         try {
             startPollingSensor();
 
-            const {
-                properties: { Id, ApiAccess },
-            } = sensor;
-
             const response = await makeRiverGaugeRequest(Id, ApiAccess);
-            let sensorData = ApiAccess
+            let sensorResponseData = ApiAccess
                 ? parseRiverGaugeApiData(Id, response.data.value.timeSeries)
                 : parseRiverGaugeCsvData(Id, parseCsvString(response.data));
 
-            // Use quarterly data feed if live sensors send back throw away values -99999
-            if (Object.keys(sensorData).length === 1) {
+            // Use quarterly data feed if live sensor returns no-value data, -99999
+            if (ApiAccess && Object.keys(sensorResponseData).length === 2) {
                 const response = await makeRiverGaugeRequest(Id);
-                sensorData = parseRiverGaugeCsvData(Id, response);
+                sensorResponseData = parseRiverGaugeCsvData(Id, response);
             }
-            completePollingSensor(sensorData);
-            return updateSensorRatings(transformSensorDataToRatings(sensorData));
+
+            // Prefer most recent sensor data available, falling back to default values
+            if ((sensorResponseData && !sensorData[Id]) ||
+                (sensorResponseData && sensorData && sensorResponseData.timestamp >= sensorData[Id].timestamp)) {
+                completePollingSensor(sensorResponseData);
+                updateSensorRatings(transformSensorDataToRatings(sensorResponseData));
+            } else {
+                completePollingSensor(defaultValues);
+                updateSensorRatings(transformSensorDataToRatings(defaultValues));
+            }
         } catch (e) {
             // Fall back to default values if no previously set sensor data,
             // and API or quarterly data requests fail
-            const {
-                properties: { Id },
-                defaultValues
-            } = sensor;
-
-            const {
-                app: { sensorData },
-            } = getState();
-
             if (!sensorData[Id]) {
                 completePollingSensor(defaultValues);
+                updateSensorRatings(transformSensorDataToRatings(defaultValues));
             }
-            return failPollingSensor(e);
+            failPollingSensor(e);
         }
     };
 }

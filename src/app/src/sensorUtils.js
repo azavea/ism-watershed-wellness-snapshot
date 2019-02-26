@@ -65,15 +65,15 @@ export function parseRiverGaugeCsvData(id, data) {
         return false;
     }
     const dataRow = data.slice(-1)[0];
+    const timestamp = new Date(`${dataRow.sample_dt} ${dataRow.sample_start_time_datum_cd}`);
 
     const extractedVariableData = VARIABLES.reduce(
         (acc, variable) => {
             const code = `p${VARIABLE_CODES[variable]}`;
             return Object.assign(acc, { [variable]: dataRow[code] || 0 });
         },
-        { id }
+        { id, timestamp }
     );
-
     return extractedVariableData;
 }
 

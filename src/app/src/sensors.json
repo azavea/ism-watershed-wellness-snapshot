@@ -43,7 +43,8 @@
         "PH": 7.0,
         "TEMPERATURE": 6.0,
         "TURBIDITY": 4.0,
-        "id": "01475548"
+        "id": "01475548",
+        "timestamp": 0
       }
     },
     {
@@ -88,7 +89,8 @@
         "PH": 7.0,
         "TEMPERATURE": 6.0,
         "TURBIDITY": 4.0,
-        "id": "01474000"
+        "id": "01474000",
+        "timestamp": 0
       }
     },
     {
@@ -133,7 +135,8 @@
         "PH": 7.0,
         "TEMPERATURE": 6.0,
         "TURBIDITY": 4.0,
-        "id": "01438500"
+        "id": "01438500",
+        "timestamp": 0
       }
     }
   ]

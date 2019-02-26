@@ -12,28 +12,35 @@ import {
 } from './app.actions';
 
 export function pollSensor(sensor) {
-    return async (dispatch, getState) => {
+    return async (_, getState) => {
 
         const { app: { sensorData } } = getState();
 
         try {
             startPollingSensor();
-            const { properties: { Id, ApiAccess } } = sensor;
+            const { properties: { Id, ApiAccess }, defaultValues } = sensor;
+            // Poll live sensor, if available
             const response = await makeRiverGaugeRequest(Id, ApiAccess);
             let gaugeData = ApiAccess
                 ? parseRiverGaugeApiData(Id, response)
                 : parseRiverGaugeCsvData(Id, response);
-            // Use quarterly data feed if live sensors send back throw away values -99999
-            if (Object.keys(gaugeData).length === 1) {
+            // Use quarterly data feed if live sensor returns no-value data, -99999
+            if (ApiAccess && Object.keys(gaugeData).length === 2) {
                 const response = await makeRiverGaugeRequest(Id);
                 gaugeData = parseRiverGaugeCsvData(Id, response);
             }
-            setSensorData(gaugeData);
+            // Prefer most recent sensor data available, falling back to default values
+            if ((gaugeData && !sensorData[Id]) ||
+                (gaugeData && sensorData && gaugeData.timestamp >= sensorData[Id].timestamp)) {
+                setSensorData(gaugeData);
+            } else {
+                setSensorData(defaultValues);
+            }
             return completePollingSensor();
         } catch (e) {
             // Fall back to default values if no previously set sensor data,
             // and API or quarterly data requests fail
-            const { Id, defaultValues } = sensor;
+            const { properties: { Id }, defaultValues } = sensor;
             if (!sensorData[Id]) {
                 setSensorData(defaultValues);
             }
