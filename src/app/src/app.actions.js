@@ -5,6 +5,7 @@ import {
     parseRiverGaugeApiData,
     parseRiverGaugeCsvData,
     makeRiverGaugeRequest,
+    transformSensorDataToRatings,
 } from './sensorUtils';
 
 export const hideIntro = createAction('Hide intro screen');
@@ -17,6 +18,7 @@ export const failPollingSensor = createAction('Failed polling sensor for data');
 export const completePollingSensor = createAction(
     'Complete polling sensor for data'
 );
+export const updateSensorRatings = createAction('Update sensor ratings');
 
 export function pollSensor(sensor) {
     return async () => {
@@ -33,6 +35,7 @@ export function pollSensor(sensor) {
                 : parseRiverGaugeCsvData(Id, parseCsvString(response.data));
 
             completePollingSensor(sensorData);
+            updateSensorRatings(transformSensorDataToRatings(sensorData));
         } catch (e) {
             failPollingSensor(e);
         }

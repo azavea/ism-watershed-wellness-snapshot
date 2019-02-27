@@ -1,7 +1,19 @@
 import axios from 'axios';
 import Papa from 'papaparse';
+import find from 'lodash/find';
+import values from 'lodash/values';
 
-import { VARIABLES, VARIABLE_CODES } from './constants';
+import {
+    VARIABLES,
+    VARIABLE_CODES,
+    VARIABLE_WITHIN_HEALTHY_RANGE,
+    VARIABLE_NOT_WITHIN_HEALTHY_RANGE,
+    OVERALL_RATING,
+    RATING_GOOD,
+    RATING_FAIR,
+    RATING_POOR,
+} from './constants';
+import sensors from './sensors.json';
 
 export function makeRiverGaugeRequest(id, isApiRequest) {
     const commaSeparatedCodes = Object.keys(VARIABLE_CODES).reduce(
@@ -60,4 +72,44 @@ export function parseRiverGaugeCsvData(id, data) {
     );
 
     return extractedVariableData;
+}
+
+export function getSensorByProp(prop, value) {
+    const sensor = find(sensors.features, f => {
+        return f.properties[prop] === value;
+    });
+
+    return sensor;
+}
+
+export function calculateOverallSensorRating(sensorRatings) {
+    const totalValue = values(sensorRatings).reduce((acc, r) => acc + r, 0);
+
+    if (totalValue >= 4) {
+        return RATING_GOOD;
+    } else if (totalValue >= 2) {
+        return RATING_FAIR;
+    } else {
+        return RATING_POOR;
+    }
+}
+
+export function transformSensorDataToRatings(sensorData) {
+    const sensor = getSensorByProp('Id', sensorData.id).properties;
+    const sensorRatings = VARIABLES.reduce((acc, variable) => {
+        const { lower, upper } = sensor.HealthyRanges[variable];
+        const variableValue = sensorData[variable];
+        const isVariableWithinHealthyRange =
+            lower <= variableValue && variableValue <= upper;
+
+        return Object.assign(acc, {
+            [variable]: isVariableWithinHealthyRange
+                ? VARIABLE_WITHIN_HEALTHY_RANGE
+                : VARIABLE_NOT_WITHIN_HEALTHY_RANGE,
+        });
+    }, {});
+
+    sensorRatings[OVERALL_RATING] = calculateOverallSensorRating(sensorRatings);
+
+    return { id: sensorData.id, sensorRatings: sensorRatings };
 }

@@ -16,6 +16,7 @@ import {
     startPollingSensor,
     failPollingSensor,
     completePollingSensor,
+    updateSensorRatings,
 } from './app.actions';
 import * as mapActions from './map.actions';
 import configureStore from './store';
@@ -31,6 +32,7 @@ assignAll(
         startPollingSensor,
         failPollingSensor,
         completePollingSensor,
+        updateSensorRatings,
     ],
     store
 );

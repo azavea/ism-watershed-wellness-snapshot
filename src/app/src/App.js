@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { find } from 'lodash';
 
 import GLMap from './Map';
 import Intro from './Intro';
@@ -9,14 +8,14 @@ import Footer from './Footer';
 import SensorOverview from './SensorOverview';
 
 import { POLLING_INTERVAL } from './constants';
-import SENSORS from './sensors';
 import { pollSensor } from './app.actions';
+import { getSensorByProp } from './sensorUtils';
 
 class App extends Component {
     componentDidMount() {
         // Poll for new sensor data immediately and on a timed cycle thereafter
         const { dispatch } = this.props;
-        const sensors = SENSORS.features;
+        const sensors = this.props.sensors.features;
 
         this.pollSensorIntervalIds = sensors.map(sensor => {
             dispatch(pollSensor(sensor));
@@ -35,7 +34,6 @@ class App extends Component {
         const {
             isIntroVisible,
             selectedSensor,
-            sensors,
             isSensorModalDisplayed,
         } = this.props;
         let containerClassName = isIntroVisible
@@ -43,10 +41,7 @@ class App extends Component {
             : selectedSensor
             ? 'main p-detail'
             : 'main p-landing';
-        const sensorData = find(sensors.features, f => {
-            return f.properties.Location === selectedSensor;
-        });
-
+        const sensorData = getSensorByProp('Location', selectedSensor);
         if (isSensorModalDisplayed) {
             containerClassName += ' modal-is-open';
         }
