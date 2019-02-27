@@ -24,7 +24,7 @@ export function pollSensor(sensor) {
             let gaugeData = ApiAccess
                 ? parseRiverGaugeApiData(Id, response)
                 : parseRiverGaugeCsvData(Id, response);
-            // Use quarterly data feed if live sensor returns no-value data, -99999
+            // Use quarterly data feed if more recent than live sensor data
             if (ApiAccess && Object.keys(gaugeData).length === 2) {
                 const response = await makeRiverGaugeRequest(Id);
                 gaugeData = parseRiverGaugeCsvData(Id, response);
@@ -38,8 +38,8 @@ export function pollSensor(sensor) {
             }
             return completePollingSensor();
         } catch (e) {
-            // Fall back to default values if no previously set sensor data,
-            // and API or quarterly data requests fail
+            // Always show data to user, preferring stale data to default dummy values
+            // if no previously set sensor data
             const { properties: { Id }, defaultValues } = sensor;
             if (!sensorData[Id]) {
                 setSensorData(defaultValues);

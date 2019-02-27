@@ -40,7 +40,7 @@ export function pollSensor(sensor) {
                 : parseRiverGaugeCsvData(Id, parseCsvString(response.data));
 
             // Live sensor data parsing will returns {id, timestamp} if the response
-            // has data. In that case, use quarterly CSV data
+            // has no data. In that case, check if quarterly CSV data exists
             if (ApiAccess && Object.keys(sensorResponseData).length === 2) {
                 const response = await makeRiverGaugeRequest(Id);
                 sensorResponseData = parseRiverGaugeCsvData(Id, response);

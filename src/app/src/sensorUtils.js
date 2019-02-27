@@ -12,6 +12,8 @@ import {
     RATING_GOOD,
     RATING_FAIR,
     RATING_POOR,
+    LAST_LIVE_SENSOR_DATE,
+    LAST_QUARTERLY_SURVEY_DATE
 } from './constants';
 import sensors from './sensors.json';
 
@@ -24,8 +26,8 @@ export function makeRiverGaugeRequest(id, isApiRequest) {
     const cleanedCodes = commaSeparatedCodes.slice(0, -1);
 
     const url = isApiRequest
-        ? `https://waterservices.usgs.gov/nwis/iv/?format=json&sites=${id}&param=${cleanedCodes}`
-        : `https://nwis.waterdata.usgs.gov/nwis/qwdata/?site_no=${id}&agency_cd=USGS&inventory_output=retrieval&rdb_inventory_output=value&begin_date=2018-08-01&TZoutput=0&pm_cd_compare=Greater%20than&radio_parm_cds=all_parm_cds&qw_attributes=0&format=rdb&qw_sample_wide=wide&rdb_qw_attributes=0&date_format=YYYY-MM-DD&rdb_compression=value&submitted_form=brief_list`;
+        ? `https://waterservices.usgs.gov/nwis/iv/?format=json&sites=${id}&param=${cleanedCodes}&startDT=${LAST_LIVE_SENSOR_DATE}`
+        : `https://nwis.waterdata.usgs.gov/nwis/qwdata/?site_no=${id}&agency_cd=USGS&inventory_output=retrieval&rdb_inventory_output=value&begin_date=${LAST_QUARTERLY_SURVEY_DATE}&TZoutput=0&pm_cd_compare=Greater%20than&radio_parm_cds=all_parm_cds&qw_attributes=0&format=rdb&qw_sample_wide=wide&rdb_qw_attributes=0&date_format=YYYY-MM-DD&rdb_compression=value&submitted_form=brief_list`;
     return axios.get(url);
 }
 
@@ -41,21 +43,22 @@ export function parseCsvString(csvString) {
 }
 
 export function parseRiverGaugeApiData(id, data) {
-    const extractedVariableData = VARIABLES.reduce(
-        (acc, variable, idx) => {
-            const apiVariableData = data[idx];
-            if (apiVariableData) {
-                const sensorValue = Number(
-                    apiVariableData.values[0].value[0].value
-                );
-                return sensorValue !== apiVariableData.variable.noDataValue
-                    ? Object.assign(acc, { [variable]: sensorValue })
-                    : acc;
-            }
-            return acc;
-        },
-        { id }
-    );
+    // API data sends variable data in the same order mirrored in VARIABLES
+    const extractedVariableData = VARIABLES.reduce((acc, variable, idx) => {
+        const apiVariableData = data[idx];
+        if (apiVariableData) {
+            // Step backwards in time until we find actual live sensor readings
+            const descendingTimeApiVariableData = Array.from(apiVariableData.values[0].value).reverse();
+            const sensorReading = descendingTimeApiVariableData.find(
+                sensorReading => Number(sensorReading.value) !== apiVariableData.variable.noDataValue
+            );
+            return Object.assign(acc, {
+                [variable]: Number(sensorReading.value),
+                timestamp: new Date(sensorReading.dateTime)
+            });
+        }
+        return acc;
+    }, { id });
 
     return extractedVariableData;
 }
@@ -66,16 +69,10 @@ export function parseRiverGaugeCsvData(id, data) {
     }
     const dataRow = data.slice(-1)[0];
     const timestamp = new Date(`${dataRow.sample_dt} ${dataRow.sample_start_time_datum_cd}`);
-    // API data sends variable data in the same order mirrored in VARIABLES
-    const extractedVariableData = VARIABLES.reduce((acc, variable, idx) => {
-        const apiVariableData = data[idx];
-        if (apiVariableData) {
-            const sensorValue = Number(apiVariableData.values[0].value[0].value);
-            return sensorValue !== apiVariableData.variable.noDataValue
-                ? Object.assign(acc, {[variable]: sensorValue })
-                : acc;
-        }
-        return acc;
+
+    const extractedVariableData = VARIABLES.reduce((acc, variable) => {
+        const code = `p${VARIABLE_CODES[variable]}`;
+        return Object.assign(acc, { [variable]: dataRow[code] || 0 });
     }, { id, timestamp });
 
     return extractedVariableData;
