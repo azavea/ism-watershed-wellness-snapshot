@@ -74,13 +74,8 @@ export function parseRiverGaugeCsvData(id, data) {
     return extractedVariableData;
 }
 
-export function getSensorByProp(prop, value) {
-    const sensor = find(sensors.features, f => {
-        return f.properties[prop] === value;
-    });
-
-    return sensor;
-}
+export const getSensorByProp = (prop, value) =>
+    find(sensors.features, ({ properties }) => properties[prop] === value);
 
 export function calculateOverallSensorRating(sensorRatings) {
     const totalValue = values(sensorRatings).reduce((acc, r) => acc + r, 0);
@@ -109,7 +104,11 @@ export function transformSensorDataToRatings(sensorData) {
         });
     }, {});
 
-    sensorRatings[OVERALL_RATING] = calculateOverallSensorRating(sensorRatings);
-
-    return { id: sensorData.id, sensorRatings: sensorRatings };
+    return {
+        id: sensor.id,
+        sensorRatings: {
+            ...sensorRatings,
+            [OVERALL_RATING]: calculateOverallSensorRating(sensorRatings),
+        },
+    };
 }
