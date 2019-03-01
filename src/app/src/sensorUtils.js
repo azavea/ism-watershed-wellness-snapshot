@@ -105,7 +105,7 @@ export function transformSensorDataToRatings(sensorData) {
     }, {});
 
     return {
-        id: sensor.id,
+        id: sensorData.id,
         sensorRatings: {
             ...sensorRatings,
             [OVERALL_RATING]: calculateOverallSensorRating(sensorRatings),
