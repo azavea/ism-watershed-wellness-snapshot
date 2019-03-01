@@ -1,13 +1,25 @@
 import axios from 'axios';
 import Papa from 'papaparse';
+import find from 'lodash/find';
+import values from 'lodash/values';
 
 import {
     VARIABLES,
     VARIABLE_CODES,
+    VARIABLE_WITHIN_HEALTHY_RANGE,
+    VARIABLE_NOT_WITHIN_HEALTHY_RANGE,
+    OVERALL_RATING,
+    RATING_GOOD,
+    RATING_FAIR,
+    RATING_POOR,
 } from './constants';
+import sensors from './sensors.json';
 
 export function makeRiverGaugeRequest(id, isApiRequest) {
-    const commaSeparatedCodes = Object.keys(VARIABLE_CODES).reduce((acc, key) => acc.concat(`${VARIABLE_CODES[key]},`), '');
+    const commaSeparatedCodes = Object.keys(VARIABLE_CODES).reduce(
+        (acc, key) => acc.concat(`${VARIABLE_CODES[key]},`),
+        ''
+    );
     // trailing commas break the request
     const cleanedCodes = commaSeparatedCodes.slice(0, -1);
 
@@ -17,46 +29,86 @@ export function makeRiverGaugeRequest(id, isApiRequest) {
     return axios.get(url);
 }
 
-function parseCsvString(csvString) {
-    const data = Papa.parse(csvString, { header: true, comments: "#", dynamicTyping: true, skipEmptyLines: true });
-    return data;
+export function parseCsvString(csvString) {
+    const data = Papa.parse(csvString, {
+        header: true,
+        comments: '#',
+        dynamicTyping: true,
+        skipEmptyLines: true,
+    });
+
+    return data.data;
 }
 
-export function parseRiverGaugeApiData(id, apiData) {
-    const {
-        data: {
-            value: {
-                timeSeries: data,
-            },
+export function parseRiverGaugeApiData(id, data) {
+    const extractedVariableData = VARIABLES.reduce(
+        (acc, variable, idx) => {
+            const apiVariableData = data[idx];
+            if (apiVariableData) {
+                const sensorValue = Number(
+                    apiVariableData.values[0].value[0].value
+                );
+                return sensorValue !== apiVariableData.variable.noDataValue
+                    ? Object.assign(acc, { [variable]: sensorValue })
+                    : Object.assign(acc, { [variable]: 0 });
+            }
+            return acc;
         },
-    } = apiData;
-
-    const extractedVariableData = VARIABLES.reduce((acc, variable, idx) => {
-        const apiVariableData = data[idx];
-        if (apiVariableData) {
-            const sensorValue = Number(apiVariableData.values[0].value[0].value);
-            return sensorValue !== apiVariableData.variable.noDataValue
-                ? Object.assign(acc, {[variable]: sensorValue })
-                : Object.assign(acc, {[variable]: 0 });
-        }
-        return acc;
-    }, { id });
+        { id }
+    );
 
     return extractedVariableData;
 }
 
-export function parseRiverGaugeCsvData(id, csvString) {
-    const {
-        data,
-    } = csvString;
+export function parseRiverGaugeCsvData(id, data) {
+    const dataRow = data.slice(-1)[0];
 
-    const parsedData = parseCsvString(data);
-    const dataRow = parsedData.data.slice(-1)[0];
-
-    const extractedVariableData = VARIABLES.reduce((acc, variable) => {
-        const code = `p${VARIABLE_CODES[variable]}`;
-        return Object.assign(acc, {[variable]: dataRow[code] || 0 });
-    }, { id });
+    const extractedVariableData = VARIABLES.reduce(
+        (acc, variable) => {
+            const code = `p${VARIABLE_CODES[variable]}`;
+            return Object.assign(acc, { [variable]: dataRow[code] || 0 });
+        },
+        { id }
+    );
 
     return extractedVariableData;
+}
+
+export const getSensorByProp = (prop, value) =>
+    find(sensors.features, ({ properties }) => properties[prop] === value);
+
+export function calculateOverallSensorRating(sensorRatings) {
+    const totalValue = values(sensorRatings).reduce((acc, r) => acc + r, 0);
+
+    if (totalValue >= 4) {
+        return RATING_GOOD;
+    } else if (totalValue >= 2) {
+        return RATING_FAIR;
+    } else {
+        return RATING_POOR;
+    }
+}
+
+export function transformSensorDataToRatings(sensorData) {
+    const sensor = getSensorByProp('Id', sensorData.id).properties;
+    const sensorRatings = VARIABLES.reduce((acc, variable) => {
+        const { lower, upper } = sensor.HealthyRanges[variable];
+        const variableValue = sensorData[variable];
+        const isVariableWithinHealthyRange =
+            lower <= variableValue && variableValue <= upper;
+
+        return Object.assign(acc, {
+            [variable]: isVariableWithinHealthyRange
+                ? VARIABLE_WITHIN_HEALTHY_RANGE
+                : VARIABLE_NOT_WITHIN_HEALTHY_RANGE,
+        });
+    }, {});
+
+    return {
+        id: sensorData.id,
+        sensorRatings: {
+            ...sensorRatings,
+            [OVERALL_RATING]: calculateOverallSensorRating(sensorRatings),
+        },
+    };
 }
