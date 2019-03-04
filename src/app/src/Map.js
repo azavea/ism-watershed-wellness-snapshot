@@ -93,7 +93,7 @@ function mapStateToProps(state) {
     return {
         mapstate: state.map.viewport,
         showBackToMapButton: state.map.isBackToMapButtonVisible,
-        sensors: state.map.sensors,
+        sensors: state.app.sensors,
         selectedSensor: state.app.selectedSensor,
     };
 }

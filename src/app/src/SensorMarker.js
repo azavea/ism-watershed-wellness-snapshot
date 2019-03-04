@@ -13,7 +13,7 @@ export default function SensorMarker(props) {
 
     const handleOnClick = () => {
         if (!selectedSensor) {
-            selectSensor(sensor.properties.Location);
+            selectSensor(sensor);
             props.handleOnClick({
                 latitude: sensor.geometry.coordinates[1],
                 longitude: sensor.geometry.coordinates[0] + adj,
