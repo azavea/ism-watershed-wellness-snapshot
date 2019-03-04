@@ -24,7 +24,7 @@ export function pollSensor(sensor) {
     return async (_, getState) => {
         const {
             properties: { Id, ApiAccess },
-            defaultValues
+            defaultValues,
         } = sensor;
 
         const {
@@ -47,20 +47,30 @@ export function pollSensor(sensor) {
             }
 
             // Prefer most recent sensor data available, falling back to default values
-            if ((sensorResponseData && !sensorData[Id]) ||
-                (sensorResponseData && sensorData && sensorResponseData.timestamp >= sensorData[Id].timestamp)) {
+            if (
+                (sensorResponseData && !sensorData[Id]) ||
+                (sensorResponseData &&
+                    sensorData &&
+                    sensorResponseData.timestamp >= sensorData[Id].timestamp)
+            ) {
                 completePollingSensor(sensorResponseData);
-                updateSensorRatings(transformSensorDataToRatings(sensorResponseData));
+                updateSensorRatings(
+                    transformSensorDataToRatings(sensorResponseData)
+                );
             } else {
                 completePollingSensor(defaultValues);
-                updateSensorRatings(transformSensorDataToRatings(defaultValues));
+                updateSensorRatings(
+                    transformSensorDataToRatings(defaultValues)
+                );
             }
         } catch (e) {
             // Fall back to default values if no previously set sensor data,
             // and API or quarterly data requests fail
             if (!sensorData[Id]) {
                 completePollingSensor(defaultValues);
-                updateSensorRatings(transformSensorDataToRatings(defaultValues));
+                updateSensorRatings(
+                    transformSensorDataToRatings(defaultValues)
+                );
             }
             failPollingSensor(e);
         }

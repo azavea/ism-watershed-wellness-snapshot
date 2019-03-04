@@ -16,13 +16,10 @@ class App extends Component {
         // Poll for new sensor data immediately and on a timed cycle thereafter
         const { dispatch, sensors } = this.props;
 
-        const fetchSensorData = (sensor) => dispatch(pollSensor(sensor));
+        const fetchSensorData = sensor => dispatch(pollSensor(sensor));
         this.pollSensorIntervalIds = sensors.features.map(sensor => {
             fetchSensorData(sensor);
-            return setInterval(
-                () => fetchSensorData(sensor),
-                POLLING_INTERVAL
-            );
+            return setInterval(() => fetchSensorData(sensor), POLLING_INTERVAL);
         });
     }
 
