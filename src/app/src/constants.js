@@ -1,3 +1,5 @@
+import SENSORS from './sensors';
+
 export const POLLING_INTERVAL = 600000;
 
 export const TEMPERATURE = 'TEMPERATURE';
@@ -28,3 +30,11 @@ export const LAST_LIVE_SENSOR_DATE = '2018-12-04';
 
 // Quarterly data was taken for all surveys on or after 8/01/2018
 export const LAST_QUARTERLY_SURVEY_DATE = '2018-08-01';
+
+export const DEFAULT_SENSOR_DATA = SENSORS.features.reduce(
+    (acc, sensor) =>
+        Object.assign(acc, {
+            [sensor.properties.Id]: sensor.defaultValues,
+        }),
+    {}
+);
