@@ -3,7 +3,11 @@ import ReactDOM from 'react-dom';
 
 import closeIcon from './img/times.svg';
 import { hideSensorModal } from './app.actions';
-import { getFishIcon, getFishBackground, getRatingClassName } from './sensorUtils';
+import {
+    getFishIconForVariableRating,
+    getFishBackgroundForVariableRating,
+    getClassNameFromVariableRating,
+} from './sensorUtils';
 import { VARIABLES, VARIABLE_DETAILS } from './constants';
 
 
@@ -19,7 +23,7 @@ export default function SensorDetail({ sensor, sensorRatings, sensorData }) {
             description,
         } = VARIABLE_DETAILS[v];
 
-        const rating = sensorRatings[v];
+        const variableRating = sensorRatings[v];
         const score = sensorData[v];
         const scoreWithUnit = `${score} ${unit}`;
         const range = `${HealthyRanges[v].lower}-${HealthyRanges[v].upper} ${unit}`;
@@ -35,10 +39,10 @@ export default function SensorDetail({ sensor, sensorRatings, sensorData }) {
                         {description}
                     </p>
                 </div>
-                <div className={`section__illustration indicator-reading indicator-reading--${getRatingClassName(rating)}`}>
+                <div className={`section__illustration indicator-reading indicator-reading--${getClassNameFromVariableRating(variableRating)}`}>
                     <img
                         className='indicator-reading__fish'
-                        src={getFishIcon(rating)}
+                        src={getFishIconForVariableRating(variableRating)}
                         alt=''
                     />
                     <div className='indicator-reading__reading'>
@@ -46,7 +50,7 @@ export default function SensorDetail({ sensor, sensorRatings, sensorData }) {
                     </div>
                     <img
                         className='indicator-reading__background'
-                        src={getFishBackground(rating)}
+                        src={getFishBackgroundForVariableRating(variableRating)}
                         alt=''
                     />
                 </div>

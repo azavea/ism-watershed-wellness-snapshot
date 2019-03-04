@@ -135,7 +135,8 @@ export function transformSensorDataToRatings(sensorData) {
     };
 }
 
-export function getFishIcon(rating) {
+export function getFishIconForVariableRating(rating) {
+    // TODO #69: Figure out how the warning state is defined
     if (rating === VARIABLE_WITHIN_HEALTHY_RANGE) {
         return positiveFishIcon;
     } else if (rating === VARIABLE_NOT_WITHIN_HEALTHY_RANGE) {
@@ -145,7 +146,8 @@ export function getFishIcon(rating) {
     }
 }
 
-export function getFishBackground(rating) {
+export function getFishBackgroundForVariableRating(rating) {
+    // TODO #69: Figure out how the warning state is defined
     if (rating === VARIABLE_WITHIN_HEALTHY_RANGE) {
         return positiveBackground;
     } else if (rating === VARIABLE_NOT_WITHIN_HEALTHY_RANGE) {
@@ -155,6 +157,28 @@ export function getFishBackground(rating) {
     }
 }
 
-export function getRatingClassName(rating) {
+export function getClassNameFromVariableRating(rating) {
+    // TODO #69: Figure out how the warning state is defined
     return rating === 0 ? 'negative' : 'positive';
+}
+
+
+export function getFishIconForOverallRating(rating) {
+    if (rating === RATING_GOOD) {
+        return positiveFishIcon
+    } else if (rating === RATING_POOR) {
+        return negativeFishIcon
+    } else {
+        return warningFishIcon
+    }
+}
+
+export function getClassNameFromOverallRating(rating) {
+    if (rating === RATING_GOOD) {
+        return 'positive'
+    } else if (rating === RATING_POOR) {
+        return 'negative'
+    } else {
+        return 'warning'
+    }
 }
