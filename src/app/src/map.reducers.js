@@ -15,7 +15,7 @@ export const initialMapState = {
         pitch: 60,
         height: '100vh',
         width: '100vw',
-    }
+    },
 };
 
 // Map-related reducer

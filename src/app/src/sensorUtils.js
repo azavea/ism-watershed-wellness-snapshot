@@ -162,23 +162,22 @@ export function getClassNameFromVariableRating(rating) {
     return rating === 0 ? 'negative' : 'positive';
 }
 
-
 export function getFishIconForOverallRating(rating) {
     if (rating === RATING_GOOD) {
-        return positiveFishIcon
+        return positiveFishIcon;
     } else if (rating === RATING_POOR) {
-        return negativeFishIcon
+        return negativeFishIcon;
     } else {
-        return warningFishIcon
+        return warningFishIcon;
     }
 }
 
 export function getClassNameFromOverallRating(rating) {
     if (rating === RATING_GOOD) {
-        return 'positive'
+        return 'positive';
     } else if (rating === RATING_POOR) {
-        return 'negative'
+        return 'negative';
     } else {
-        return 'warning'
+        return 'warning';
     }
 }

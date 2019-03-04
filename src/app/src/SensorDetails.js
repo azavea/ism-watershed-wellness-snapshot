@@ -10,23 +10,20 @@ import {
 } from './sensorUtils';
 import { VARIABLES, VARIABLE_DETAILS } from './constants';
 
-
 export default function SensorDetail({ sensor, sensorRatings, sensorData }) {
     const variableSections = VARIABLES.map(v => {
         const {
             properties: { HealthyRanges },
         } = sensor;
-    
-        const {
-            unit,
-            name, 
-            description,
-        } = VARIABLE_DETAILS[v];
+
+        const { unit, name, description } = VARIABLE_DETAILS[v];
 
         const variableRating = sensorRatings[v];
         const score = sensorData[v];
         const scoreWithUnit = `${score} ${unit}`;
-        const range = `${HealthyRanges[v].lower}-${HealthyRanges[v].upper} ${unit}`;
+        const range = `${HealthyRanges[v].lower}-${
+            HealthyRanges[v].upper
+        } ${unit}`;
 
         return (
             <section className='section' key={v}>
@@ -35,11 +32,13 @@ export default function SensorDetail({ sensor, sensorRatings, sensorData }) {
                     <p className='section__description'>
                         Between {range} is considered a healthy range
                     </p>
-                    <p className='section__body'>
-                        {description}
-                    </p>
+                    <p className='section__body'>{description}</p>
                 </div>
-                <div className={`section__illustration indicator-reading indicator-reading--${getClassNameFromVariableRating(variableRating)}`}>
+                <div
+                    className={`section__illustration indicator-reading indicator-reading--${getClassNameFromVariableRating(
+                        variableRating
+                    )}`}
+                >
                     <img
                         className='indicator-reading__fish'
                         src={getFishIconForVariableRating(variableRating)}

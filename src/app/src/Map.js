@@ -37,10 +37,7 @@ class GLMap extends Component {
     };
 
     renderCityMarkers = (sensor, index) => {
-        const {
-            selectedSensor,
-            sensorRatings,
-        } = this.props;
+        const { selectedSensor, sensorRatings } = this.props;
         const overallRating = sensorRatings[sensor.properties.Id]
             ? sensorRatings[sensor.properties.Id].OVERALL_RATING
             : null;

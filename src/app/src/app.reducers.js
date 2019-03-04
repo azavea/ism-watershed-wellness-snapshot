@@ -21,7 +21,7 @@ const initialAppState = {
     isSensorModalDisplayed: false,
     sensorData: DEFAULT_SENSOR_DATA,
     sensorRatings: {},
-    sensors: sensors
+    sensors: sensors,
 };
 
 const appReducer = createReducer(

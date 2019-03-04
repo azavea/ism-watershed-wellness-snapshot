@@ -54,7 +54,9 @@ class App extends Component {
                 {selectedSensor !== null ? (
                     <SensorOverview
                         sensor={selectedSensor}
-                        sensorRatings={sensorRatings[selectedSensor.properties.Id]}
+                        sensorRatings={
+                            sensorRatings[selectedSensor.properties.Id]
+                        }
                         sensorData={sensorData[selectedSensor.properties.Id]}
                         isSensorModalDisplayed={isSensorModalDisplayed}
                     />

@@ -1,7 +1,10 @@
 import React from 'react';
 
 import { selectSensor } from './app.actions';
-import { getFishIconForOverallRating, getClassNameFromOverallRating } from './sensorUtils';
+import {
+    getFishIconForOverallRating,
+    getClassNameFromOverallRating,
+} from './sensorUtils';
 
 export default function SensorMarker(props) {
     const { sensor, selectedSensor, sensorOverallRating } = props;
@@ -26,14 +29,20 @@ export default function SensorMarker(props) {
 
     return (
         <div onClick={handleOnClick}>
-            <div className={`marker marker--${getClassNameFromOverallRating(sensorOverallRating)}`}>
+            <div
+                className={`marker marker--${getClassNameFromOverallRating(
+                    sensorOverallRating
+                )}`}
+            >
                 <div className='marker__inner'>
                     <div className='marker__content'>
                         <div className='marker__level' />
                         <div className='marker__symbol'>
                             <img
                                 className='marker__image'
-                                src={getFishIconForOverallRating(sensorOverallRating)}
+                                src={getFishIconForOverallRating(
+                                    sensorOverallRating
+                                )}
                                 alt='Sensor marker'
                             />
                         </div>
