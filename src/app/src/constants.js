@@ -10,6 +10,33 @@ export const TURBIDITY = 'TURBIDITY';
 // Explicitly ordered to match the rigid ordering of the live sensor API response
 export const VARIABLES = [TEMPERATURE, OXYGEN, PH, TURBIDITY];
 
+export const VARIABLE_DETAILS = {
+    [TEMPERATURE]: {
+        name: 'Water Temperature',
+        description:
+            'Water temperature affects the growth and reproduction of living organisms as well as water density.',
+        unit: '°F',
+    },
+    [OXYGEN]: {
+        name: 'Dissolved Oxygen',
+        description:
+            'A measure of the concentration of oxygen dissolved in a body of water, relative to the maximum concentration.',
+        unit: 'mg/L',
+    },
+    [PH]: {
+        name: 'pH',
+        description:
+            'pH is a quantitative measure of the acidity (below 7.0pH) or basicity (above 7.0pH) in a body of water.',
+        unit: 'pH',
+    },
+    [TURBIDITY]: {
+        name: 'Turbidity',
+        description:
+            'Turbidity is a measurement of the cloudiness in a body of water. This cloudiness is caused by the presense of particles that can be invisible to the human eye.',
+        unit: 'NTU',
+    },
+};
+
 // Variables are rather named by USGS parameter code in the quarterly CSV data
 export const VARIABLE_CODES = {
     [TEMPERATURE]: '00010',

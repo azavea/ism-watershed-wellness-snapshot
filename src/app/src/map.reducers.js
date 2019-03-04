@@ -1,7 +1,6 @@
 import { createReducer } from 'redux-act';
 import update from 'immutability-helper';
 
-import sensors from './sensors.json';
 import { toggleBackToMapButton, updateViewport } from './map.actions';
 
 // Map-related state
@@ -17,7 +16,6 @@ export const initialMapState = {
         height: '100vh',
         width: '100vw',
     },
-    sensors: sensors,
 };
 
 // Map-related reducer

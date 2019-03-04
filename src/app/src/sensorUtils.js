@@ -13,9 +13,15 @@ import {
     RATING_FAIR,
     RATING_POOR,
     LAST_LIVE_SENSOR_DATE,
-    LAST_QUARTERLY_SURVEY_DATE
+    LAST_QUARTERLY_SURVEY_DATE,
 } from './constants';
 import sensors from './sensors.json';
+import positiveFishIcon from './img/fish_positive.svg';
+import positiveBackground from './img/health_background_positive.svg';
+import warningFishIcon from './img/fish_warning.svg';
+import warningBackground from './img/health_background_warning.svg';
+import negativeFishIcon from './img/fish_negative.svg';
+import negativeBackground from './img/health_background_negative.svg';
 
 export function makeRiverGaugeRequest(id, isApiRequest) {
     const commaSeparatedCodes = Object.keys(VARIABLE_CODES).reduce(
@@ -44,21 +50,28 @@ export function parseCsvString(csvString) {
 
 export function parseRiverGaugeApiData(id, data) {
     // API data sends variable data in the same order mirrored in VARIABLES
-    const extractedVariableData = VARIABLES.reduce((acc, variable, idx) => {
-        const apiVariableData = data[idx];
-        if (apiVariableData) {
-            // Step backwards in time until we find actual live sensor readings
-            const descendingTimeApiVariableData = Array.from(apiVariableData.values[0].value).reverse();
-            const sensorReading = descendingTimeApiVariableData.find(
-                sensorReading => Number(sensorReading.value) !== apiVariableData.variable.noDataValue
-            );
-            return Object.assign(acc, {
-                [variable]: Number(sensorReading.value),
-                timestamp: new Date(sensorReading.dateTime)
-            });
-        }
-        return acc;
-    }, { id });
+    const extractedVariableData = VARIABLES.reduce(
+        (acc, variable, idx) => {
+            const apiVariableData = data[idx];
+            if (apiVariableData) {
+                // Step backwards in time until we find actual live sensor readings
+                const descendingTimeApiVariableData = Array.from(
+                    apiVariableData.values[0].value
+                ).reverse();
+                const sensorReading = descendingTimeApiVariableData.find(
+                    sensorReading =>
+                        Number(sensorReading.value) !==
+                        apiVariableData.variable.noDataValue
+                );
+                return Object.assign(acc, {
+                    [variable]: Number(sensorReading.value),
+                    timestamp: new Date(sensorReading.dateTime),
+                });
+            }
+            return acc;
+        },
+        { id }
+    );
 
     return extractedVariableData;
 }
@@ -68,12 +81,17 @@ export function parseRiverGaugeCsvData(id, data) {
         return false;
     }
     const dataRow = data.slice(-1)[0];
-    const timestamp = new Date(`${dataRow.sample_dt} ${dataRow.sample_start_time_datum_cd}`);
+    const timestamp = new Date(
+        `${dataRow.sample_dt} ${dataRow.sample_start_time_datum_cd}`
+    );
 
-    const extractedVariableData = VARIABLES.reduce((acc, variable) => {
-        const code = `p${VARIABLE_CODES[variable]}`;
-        return Object.assign(acc, { [variable]: dataRow[code] || 0 });
-    }, { id, timestamp });
+    const extractedVariableData = VARIABLES.reduce(
+        (acc, variable) => {
+            const code = `p${VARIABLE_CODES[variable]}`;
+            return Object.assign(acc, { [variable]: dataRow[code] || 0 });
+        },
+        { id, timestamp }
+    );
 
     return extractedVariableData;
 }
@@ -115,4 +133,51 @@ export function transformSensorDataToRatings(sensorData) {
             [OVERALL_RATING]: calculateOverallSensorRating(sensorRatings),
         },
     };
+}
+
+export function getFishIconForVariableRating(rating) {
+    // TODO #69: Figure out how the warning state is defined
+    if (rating === VARIABLE_WITHIN_HEALTHY_RANGE) {
+        return positiveFishIcon;
+    } else if (rating === VARIABLE_NOT_WITHIN_HEALTHY_RANGE) {
+        return negativeFishIcon;
+    } else {
+        return warningFishIcon;
+    }
+}
+
+export function getFishBackgroundForVariableRating(rating) {
+    // TODO #69: Figure out how the warning state is defined
+    if (rating === VARIABLE_WITHIN_HEALTHY_RANGE) {
+        return positiveBackground;
+    } else if (rating === VARIABLE_NOT_WITHIN_HEALTHY_RANGE) {
+        return negativeBackground;
+    } else {
+        return warningBackground;
+    }
+}
+
+export function getClassNameFromVariableRating(rating) {
+    // TODO #69: Figure out how the warning state is defined
+    return rating === 0 ? 'negative' : 'positive';
+}
+
+export function getFishIconForOverallRating(rating) {
+    if (rating === RATING_GOOD) {
+        return positiveFishIcon;
+    } else if (rating === RATING_POOR) {
+        return negativeFishIcon;
+    } else {
+        return warningFishIcon;
+    }
+}
+
+export function getClassNameFromOverallRating(rating) {
+    if (rating === RATING_GOOD) {
+        return 'positive';
+    } else if (rating === RATING_POOR) {
+        return 'negative';
+    } else {
+        return 'warning';
+    }
 }

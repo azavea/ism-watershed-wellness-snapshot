@@ -9,7 +9,6 @@ import SensorOverview from './SensorOverview';
 
 import { POLLING_INTERVAL } from './constants';
 import { pollSensor } from './app.actions';
-import { getSensorByProp } from './sensorUtils';
 
 class App extends Component {
     componentDidMount() {
@@ -32,13 +31,14 @@ class App extends Component {
             isIntroVisible,
             selectedSensor,
             isSensorModalDisplayed,
+            sensorRatings,
+            sensorData,
         } = this.props;
         let containerClassName = isIntroVisible
             ? 'main p-intro'
             : selectedSensor
             ? 'main p-detail'
             : 'main p-landing';
-        const sensorData = getSensorByProp('Location', selectedSensor);
         if (isSensorModalDisplayed) {
             containerClassName += ' modal-is-open';
         }
@@ -53,7 +53,11 @@ class App extends Component {
                 <GLMap />
                 {selectedSensor !== null ? (
                     <SensorOverview
-                        sensor={sensorData}
+                        sensor={selectedSensor}
+                        sensorRatings={
+                            sensorRatings[selectedSensor.properties.Id]
+                        }
+                        sensorData={sensorData[selectedSensor.properties.Id]}
                         isSensorModalDisplayed={isSensorModalDisplayed}
                     />
                 ) : null}
@@ -66,7 +70,9 @@ function mapStateToProps(state) {
     return {
         isIntroVisible: state.app.isIntroVisible,
         selectedSensor: state.app.selectedSensor,
-        sensors: state.map.sensors,
+        sensors: state.app.sensors,
+        sensorRatings: state.app.sensorRatings,
+        sensorData: state.app.sensorData,
         isSensorModalDisplayed: state.app.isSensorModalDisplayed,
     };
 }

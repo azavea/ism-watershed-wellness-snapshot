@@ -1,10 +1,13 @@
 import React from 'react';
 
 import { selectSensor } from './app.actions';
-import positiveFishIcon from './img/fish_positive.svg';
+import {
+    getFishIconForOverallRating,
+    getClassNameFromOverallRating,
+} from './sensorUtils';
 
 export default function SensorMarker(props) {
-    const { sensor, selectedSensor } = props;
+    const { sensor, selectedSensor, sensorOverallRating } = props;
 
     // Makes sure the marker is centered in the visible
     // portion of the map, since half of the map is
@@ -13,7 +16,7 @@ export default function SensorMarker(props) {
 
     const handleOnClick = () => {
         if (!selectedSensor) {
-            selectSensor(sensor.properties.Location);
+            selectSensor(sensor);
             props.handleOnClick({
                 latitude: sensor.geometry.coordinates[1],
                 longitude: sensor.geometry.coordinates[0] + adj,
@@ -26,14 +29,20 @@ export default function SensorMarker(props) {
 
     return (
         <div onClick={handleOnClick}>
-            <div className='marker marker--positive'>
+            <div
+                className={`marker marker--${getClassNameFromOverallRating(
+                    sensorOverallRating
+                )}`}
+            >
                 <div className='marker__inner'>
                     <div className='marker__content'>
                         <div className='marker__level' />
                         <div className='marker__symbol'>
                             <img
                                 className='marker__image'
-                                src={positiveFishIcon}
+                                src={getFishIconForOverallRating(
+                                    sensorOverallRating
+                                )}
                                 alt='Sensor marker'
                             />
                         </div>

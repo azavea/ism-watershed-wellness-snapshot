@@ -3,8 +3,14 @@ import React from 'react';
 import listUl from './img/list-ul.svg';
 import SensorDetails from './SensorDetails';
 import { showSensorModal } from './app.actions';
+import { getClassNameFromOverallRating } from './sensorUtils';
 
-export default function SensorOverview({ sensor, isSensorModalDisplayed }) {
+export default function SensorOverview({
+    sensor,
+    sensorRatings,
+    sensorData,
+    isSensorModalDisplayed,
+}) {
     return (
         <div className='main l-detail l-detail--tinicum'>
             <div className='sidebar'>
@@ -19,9 +25,15 @@ export default function SensorOverview({ sensor, isSensorModalDisplayed }) {
                         </p>
                     </header>
 
-                    <div className='health health--positive'>
+                    <div
+                        className={`health health--${getClassNameFromOverallRating(
+                            sensorRatings.OVERALL_RATING
+                        )}`}
+                    >
                         <h3 className='health__heading'>
-                            This site is in healthy condition!
+                            This site is in{' '}
+                            {sensorRatings.OVERALL_RATING.toLowerCase()}{' '}
+                            condition!
                         </h3>
                         <div className='health__illustration'>
                             <button
@@ -37,7 +49,11 @@ export default function SensorOverview({ sensor, isSensorModalDisplayed }) {
                                 />
                             </button>
                             {isSensorModalDisplayed ? (
-                                <SensorDetails sensor={sensor} />
+                                <SensorDetails
+                                    sensor={sensor}
+                                    sensorData={sensorData}
+                                    sensorRatings={sensorRatings}
+                                />
                             ) : null}
                             <div className='health__level' />
                         </div>

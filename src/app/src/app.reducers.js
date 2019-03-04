@@ -1,6 +1,8 @@
 import { createReducer } from 'redux-act';
 import update from 'immutability-helper';
 
+import sensors from './sensors.json';
+
 import {
     hideIntro,
     selectSensor,
@@ -19,6 +21,7 @@ const initialAppState = {
     isSensorModalDisplayed: false,
     sensorData: DEFAULT_SENSOR_DATA,
     sensorRatings: {},
+    sensors: sensors,
 };
 
 const appReducer = createReducer(

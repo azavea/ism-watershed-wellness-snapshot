@@ -37,6 +37,10 @@ class GLMap extends Component {
     };
 
     renderCityMarkers = (sensor, index) => {
+        const { selectedSensor, sensorRatings } = this.props;
+        const overallRating = sensorRatings[sensor.properties.Id]
+            ? sensorRatings[sensor.properties.Id].OVERALL_RATING
+            : null;
         return (
             <Marker
                 key={`marker-${index}`}
@@ -48,7 +52,8 @@ class GLMap extends Component {
             >
                 <SensorMarker
                     sensor={sensor}
-                    selectedSensor={this.props.selectedSensor}
+                    selectedSensor={selectedSensor}
+                    sensorOverallRating={overallRating}
                     size={50}
                     handleOnClick={this.goToLocation}
                 />
@@ -93,7 +98,8 @@ function mapStateToProps(state) {
     return {
         mapstate: state.map.viewport,
         showBackToMapButton: state.map.isBackToMapButtonVisible,
-        sensors: state.map.sensors,
+        sensors: state.app.sensors,
+        sensorRatings: state.app.sensorRatings,
         selectedSensor: state.app.selectedSensor,
     };
 }
