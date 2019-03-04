@@ -11,11 +11,13 @@ import {
     updateSensorRatings,
 } from './app.actions';
 
+import { DEFAULT_SENSOR_DATA } from './constants';
+
 const initialAppState = {
     isIntroVisible: true,
     selectedSensor: null,
     isSensorModalDisplayed: false,
-    sensorData: {},
+    sensorData: DEFAULT_SENSOR_DATA,
     sensorRatings: {},
 };
 

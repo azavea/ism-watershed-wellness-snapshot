@@ -14,15 +14,12 @@ import { getSensorByProp } from './sensorUtils';
 class App extends Component {
     componentDidMount() {
         // Poll for new sensor data immediately and on a timed cycle thereafter
-        const { dispatch } = this.props;
-        const sensors = this.props.sensors.features;
+        const { dispatch, sensors } = this.props;
 
-        this.pollSensorIntervalIds = sensors.map(sensor => {
-            dispatch(pollSensor(sensor));
-            return setInterval(
-                () => dispatch(pollSensor(sensor)),
-                POLLING_INTERVAL
-            );
+        const fetchSensorData = sensor => dispatch(pollSensor(sensor));
+        this.pollSensorIntervalIds = sensors.features.map(sensor => {
+            fetchSensorData(sensor);
+            return setInterval(() => fetchSensorData(sensor), POLLING_INTERVAL);
         });
     }
 
