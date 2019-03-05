@@ -1,33 +1,44 @@
 .health {
     &__heading {
-        @include text(500);
+        @include text(400);
+        text-align: center;
+    }
+
+    &__rating-text {
+        @include heading(600);
+        text-transform: uppercase;
     }
 
     &__illustration {
+        background-size: 100%;
+        background-position: center bottom;
+        display: block;
         position: relative;
-        width: 100%;
-        height: 40vh;
-        margin: 0 0 $pad-compact;
+        margin: 1rem 0;
+        line-height: 0;
 
-        &::after {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            z-index: 0;
+        // Size the illustration container
+        &::before {
             content: "";
-            border-image: url(../img/wave.svg) 100% 0 0 0 fill / auto repeat;
+            padding-bottom: 60%;
+            display: block;
         }
     }
 
+    // Styles for the "level" that is based on the data.
+    // The illustration is being placed here as well
+    // so that we can multiply the color onto the image using
+    // background-blend-mode: multiply;
     &__level {
         position: absolute;
         top: 0;
         right: 0;
         bottom: 0;
         left: 0;
-        background-color: rgba($black, 0.25);
+        opacity: 0.4;
+        background-blend-mode: multiply;
+        background-size: 100%;
+        background-position: center bottom;
     }
 
     &__description {
@@ -36,49 +47,61 @@
 
     &__button {
         position: absolute;
-        top: -1rem;
-        right: -1rem;
+        top: -2.5rem;
+        right: -2rem;
         z-index: 1;
     }
 
     &--positive {
-        .health__illustration {
-            background: $brand-aqua;
-        }
-
-        .health__heading {
+        .health__rating-text {
             color: $brand-aqua;
         }
 
+        // Place the correct image in.
+        .health__illustration,
         .health__level {
+            background-image: url('../img/scene_positive.svg');
+        }
+
+        // top: [value]; is setting the height of the "level".
+        .health__level {
+            background-color: $brand-aqua-dark;
             top: 20%;
         }
     }
 
     &--warning {
-        .health__illustration {
-            background: $brand-yellow;
-        }
-
-        .health__heading {
+        .health__rating-text {
             color: $brand-yellow;
         }
 
+        // Place the correct image in.
+        .health__illustration,
         .health__level {
+            background-image: url('../img/scene_warning.svg');
+        }
+
+        // top: [value]; is setting the height of the "level".
+        .health__level {
+            background-color: $brand-yellow-dark;
             top: 40%;
         }
     }
 
     &--negative {
-        .health__illustration {
-            background: $brand-red;
-        }
-
-        .health__heading {
+        .health__rating-text {
             color: $brand-red;
         }
 
+        // Place the correct image in.
+        .health__illustration,
         .health__level {
+            background-image: url('../img/scene_negative.svg');
+        }
+
+        // top: [value]; is setting the height of the "level".
+        .health__level {
+            background-color: $brand-red-dark;
             top: 80%;
         }
     }
