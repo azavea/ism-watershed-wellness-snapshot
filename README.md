@@ -25,10 +25,13 @@ Next, add the following line to that file:
 REACT_APP_MAPBOX_API_KEY=<YOUR_API_KEY_HERE>
 ```
 
-Rebuild Docker images and run application.
+Finally, start the VM, log on, and run the development server.
 
 ```sh
-./scripts/server
+vagrant up
+vagrant ssh
+./scripts/update.sh
+./scripts/server.sh
 ```
 
 ### Ports
