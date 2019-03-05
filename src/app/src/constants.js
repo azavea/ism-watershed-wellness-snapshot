@@ -65,3 +65,6 @@ export const DEFAULT_SENSOR_DATA = SENSORS.features.reduce(
         }),
     {}
 );
+
+export const msPerDay = 1440;
+export const msPerHour = 60;

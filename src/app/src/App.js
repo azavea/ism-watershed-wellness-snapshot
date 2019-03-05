@@ -7,7 +7,7 @@ import Header from './Header';
 import Footer from './Footer';
 import SensorOverview from './SensorOverview';
 
-import { POLLING_INTERVAL } from './constants';
+import { POLLING_INTERVAL, msPerDay, msPerHour } from './constants';
 import { pollSensor } from './app.actions';
 import { msToDays, msToHours, msToMins } from './sensorUtils';
 
@@ -55,10 +55,10 @@ class App extends Component {
         // Minutes if < 1 hr; hours if 1h - 24h; days if 1 day+
         let timeSinceLastUpdate = msToMins(msElapsedSinceLastUpdate);
         let timeLabel = 'minutes';
-        if (timeSinceLastUpdate >= 1440) {
+        if (timeSinceLastUpdate >= msPerDay) {
             timeSinceLastUpdate = msToDays(msElapsedSinceLastUpdate);
             timeLabel = 'days';
-        } else if (timeSinceLastUpdate >= 60) {
+        } else if (timeSinceLastUpdate >= msPerHour) {
             timeSinceLastUpdate = msToHours(msElapsedSinceLastUpdate);
             timeLabel = 'hours';
         }
