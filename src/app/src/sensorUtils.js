@@ -181,3 +181,15 @@ export function getClassNameFromOverallRating(rating) {
         return 'warning';
     }
 }
+
+export function msToDays(ms) {
+    return Math.round(ms / (1000 * 60 * 60 * 24));
+}
+
+export function msToHours(ms) {
+    return Math.round(ms / (1000 * 60 * 60));
+}
+
+export function msToMins(ms) {
+    return Math.round(ms / (1000 * 60));
+}

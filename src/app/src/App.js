@@ -9,6 +9,7 @@ import SensorOverview from './SensorOverview';
 
 import { POLLING_INTERVAL } from './constants';
 import { pollSensor } from './app.actions';
+import { msToDays, msToHours, msToMins } from './sensorUtils';
 
 class App extends Component {
     componentDidMount() {
@@ -33,6 +34,7 @@ class App extends Component {
             isSensorModalDisplayed,
             sensorRatings,
             sensorData,
+            sensors,
         } = this.props;
         let containerClassName = isIntroVisible
             ? 'main p-intro'
@@ -43,12 +45,33 @@ class App extends Component {
             containerClassName += ' modal-is-open';
         }
 
+        const sensorReadingDates = sensors.features.map(sensor => {
+            const sensorId = sensor.properties.Id;
+            return sensorData[sensorId].timestamp;
+        });
+        const msElapsedSinceLastUpdate =
+            new Date().getTime() - Math.max(...sensorReadingDates);
+        // Display footer timestamp in sensible units
+        // Minutes if < 1 hr; hours if 1h - 24h; days if 1 day+
+        let timeSinceLastUpdate = msToMins(msElapsedSinceLastUpdate);
+        let timeLabel = 'minutes';
+        if (timeSinceLastUpdate >= 1440) {
+            timeSinceLastUpdate = msToDays(msElapsedSinceLastUpdate);
+            timeLabel = 'days';
+        } else if (timeSinceLastUpdate >= 60) {
+            timeSinceLastUpdate = msToHours(msElapsedSinceLastUpdate);
+            timeLabel = 'hours';
+        }
+
         return (
             <div id='app-container' className={containerClassName}>
                 {isIntroVisible ? <Intro /> : null}
                 <div className='main l-landing'>
                     <Header />
-                    <Footer />
+                    <Footer
+                        elapsedTime={timeSinceLastUpdate}
+                        timeLabel={timeLabel}
+                    />
                 </div>
                 <GLMap />
                 {selectedSensor !== null ? (
