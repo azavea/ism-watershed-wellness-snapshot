@@ -7,15 +7,13 @@ import Header from './Header';
 import Footer from './Footer';
 import SensorOverview from './SensorOverview';
 
-import { POLLING_INTERVAL, msPerDay, msPerHour } from './constants';
+import { POLLING_INTERVAL } from './constants';
 import { pollSensor } from './app.actions';
-import { msToDays, msToHours, msToMins } from './sensorUtils';
 
 class App extends Component {
     componentDidMount() {
         // Poll for new sensor data immediately and on a timed cycle thereafter
         const { dispatch, sensors } = this.props;
-
         const fetchSensorData = sensor => dispatch(pollSensor(sensor));
         this.pollSensorIntervalIds = sensors.features.map(sensor => {
             fetchSensorData(sensor);
@@ -49,19 +47,9 @@ class App extends Component {
             const sensorId = sensor.properties.Id;
             return sensorData[sensorId].timestamp;
         });
+        const mostRecentDate = Math.max(...sensorReadingDates);
         const msElapsedSinceLastUpdate =
-            new Date().getTime() - Math.max(...sensorReadingDates);
-        // Display footer timestamp in sensible units
-        // Minutes if < 1 hr; hours if 1h - 24h; days if 1 day+
-        let timeSinceLastUpdate = msToMins(msElapsedSinceLastUpdate);
-        let timeLabel = 'minutes';
-        if (timeSinceLastUpdate >= msPerDay) {
-            timeSinceLastUpdate = msToDays(msElapsedSinceLastUpdate);
-            timeLabel = 'days';
-        } else if (timeSinceLastUpdate >= msPerHour) {
-            timeSinceLastUpdate = msToHours(msElapsedSinceLastUpdate);
-            timeLabel = 'hours';
-        }
+            mostRecentDate === 0 ? null : new Date().getTime() - mostRecentDate;
 
         return (
             <div id='app-container' className={containerClassName}>
@@ -69,8 +57,7 @@ class App extends Component {
                 <div className='main l-landing'>
                     <Header />
                     <Footer
-                        elapsedTime={timeSinceLastUpdate}
-                        timeLabel={timeLabel}
+                        msElapsedSinceLastUpdate={msElapsedSinceLastUpdate}
                     />
                 </div>
                 <GLMap />

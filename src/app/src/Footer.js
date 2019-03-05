@@ -1,8 +1,14 @@
 import React from 'react';
 
 import feedIcon from './img/feed.svg';
+import { getElapsedTimeLabel } from './sensorUtils';
 
-export default function Footer({ elapsedTime, timeLabel }) {
+export default function Footer({ msElapsedSinceLastUpdate }) {
+    const label = getElapsedTimeLabel(msElapsedSinceLastUpdate);
+    const message = label
+        ? `Health reading last updated ${label}.`
+        : 'Common sensor readings displayed for each site.';
+
     return (
         <footer className='footer footer--current-reading'>
             <div className='footer__content'>
@@ -13,9 +19,8 @@ export default function Footer({ elapsedTime, timeLabel }) {
                         alt='Feed icon'
                     />
                 </div>
-                <p className='footer__text'>
-                    Health reading last updated {elapsedTime} {timeLabel} ago!
-                </p>
+                <p className='footer__text' />
+                {message}
             </div>
         </footer>
     );
