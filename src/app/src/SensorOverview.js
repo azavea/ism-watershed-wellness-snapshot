@@ -32,8 +32,10 @@ export default function SensorOverview({
                     >
                         <h3 className='health__heading'>
                             This site is in{' '}
-                            {sensorRatings.OVERALL_RATING.toLowerCase()}{' '}
-                            condition!
+                            <div className='health__rating-text'>
+                                {sensorRatings.OVERALL_RATING.toLowerCase()}{' '}
+                                condition
+                            </div>
                         </h3>
                         <div className='health__illustration'>
                             <button
