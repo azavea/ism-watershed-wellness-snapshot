@@ -14,7 +14,6 @@ class App extends Component {
     componentDidMount() {
         // Poll for new sensor data immediately and on a timed cycle thereafter
         const { dispatch, sensors } = this.props;
-
         const fetchSensorData = sensor => dispatch(pollSensor(sensor));
         this.pollSensorIntervalIds = sensors.features.map(sensor => {
             fetchSensorData(sensor);
@@ -33,6 +32,7 @@ class App extends Component {
             isSensorModalDisplayed,
             sensorRatings,
             sensorData,
+            sensors,
         } = this.props;
         let containerClassName = isIntroVisible
             ? 'main p-intro'
@@ -43,12 +43,17 @@ class App extends Component {
             containerClassName += ' modal-is-open';
         }
 
+        const sensorReadingDates = sensors.features.map(sensor => {
+            const sensorId = sensor.properties.Id;
+            return sensorData[sensorId].timestamp;
+        });
+
         return (
             <div id='app-container' className={containerClassName}>
                 {isIntroVisible ? <Intro /> : null}
                 <div className='main l-landing'>
                     <Header />
-                    <Footer />
+                    <Footer sensorReadingDates={sensorReadingDates} />
                 </div>
                 <GLMap />
                 {selectedSensor !== null ? (

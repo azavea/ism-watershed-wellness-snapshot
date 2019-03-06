@@ -5,6 +5,8 @@ import {
     parseRiverGaugeCsvData,
     transformSensorDataToRatings,
     calculateOverallSensorRating,
+    getElapsedTimeLabel,
+    getMostRecentDateFromList,
 } from '../sensorUtils';
 
 import {
@@ -13,9 +15,14 @@ import {
     RATING_GOOD,
     RATING_FAIR,
     RATING_POOR,
+    msPerHour,
+    msPerYear,
+    msPerDay,
+    msPerMinute,
 } from '../constants';
 
 it('parses real-time sensor data', () => {
+    const date = '2018-12-04T14:30:00.000-05:00';
     const createTestSensorReading = () => {
         return {
             values: [
@@ -23,6 +30,7 @@ it('parses real-time sensor data', () => {
                     value: [
                         {
                             value: 1,
+                            dateTime: date,
                         },
                     ],
                 },
@@ -41,6 +49,7 @@ it('parses real-time sensor data', () => {
         OXYGEN: 1,
         PH: 1,
         TURBIDITY: 1,
+        timestamp: new Date(date),
     };
 
     const actualParsedSensorData = parseRiverGaugeApiData('0', testSensorData);
@@ -49,6 +58,9 @@ it('parses real-time sensor data', () => {
 });
 
 it('parses quarterly sensor data', () => {
+    const date = '2018-12-04';
+    const timezone = 'EST';
+
     const testSensorData = [
         {},
         {
@@ -56,8 +68,8 @@ it('parses quarterly sensor data', () => {
             p00300: 12.4,
             p00400: 7.3,
             p63680: 3.3,
-            sample_dt: '2018-12-04',
-            sample_start_time_datum_cd: 'EST',
+            sample_dt: date,
+            sample_start_time_datum_cd: timezone,
             sample_tm: '12:00',
             site_no: 1438500,
         },
@@ -71,6 +83,7 @@ it('parses quarterly sensor data', () => {
         OXYGEN: 12.4,
         PH: 7.3,
         TURBIDITY: 3.3,
+        timestamp: new Date(`${date} ${timezone}`),
     };
 
     expect(actualParsedSensorData).toEqual(expectedParsedSensorData);
@@ -116,6 +129,7 @@ it('transforms sensor data to sensor ratings', () => {
         OXYGEN: 12.4,
         PH: 7.3,
         TURBIDITY: 3.3,
+        timestamp: new Date(),
     };
 
     const expectedSensorRatings = {
@@ -131,4 +145,36 @@ it('transforms sensor data to sensor ratings', () => {
     );
 
     expect(actualSensorRatings.sensorRatings).toEqual(expectedSensorRatings);
+});
+
+it('selects the most recent date', () => {
+    const december = new Date('2018-12-01');
+    const november = new Date('2018-11-01');
+    const may = new Date('2018-05-10');
+
+    const dates = [may, november, december];
+    const decemberAsNum = december.getTime();
+
+    expect(getMostRecentDateFromList(dates)).toEqual(decemberAsNum);
+});
+
+it('transforms sensor data timestamps to the expected message', () => {
+    // time in milliseconds (ms)
+    const overOneYearAgo = msPerYear + 1;
+    const oneYearAgo = msPerYear;
+    const oneDayAgo = msPerDay;
+    const twoDaysAgo = msPerDay * 2;
+    const tenDaysAgo = msPerDay * 10;
+    const tenHoursAgo = msPerHour * 10;
+    const minutesAgo = msPerMinute * 59;
+
+    expect(getElapsedTimeLabel(overOneYearAgo)).toEqual('over a year ago');
+    expect(getElapsedTimeLabel(oneYearAgo)).toEqual('in the past year');
+    expect(getElapsedTimeLabel(tenDaysAgo)).toEqual('in the past month');
+    expect(getElapsedTimeLabel(twoDaysAgo)).toEqual('in the past week');
+    expect(getElapsedTimeLabel(oneDayAgo)).toEqual('yesterday');
+    expect(getElapsedTimeLabel(tenHoursAgo)).toEqual('10 hours ago');
+    expect(getElapsedTimeLabel(minutesAgo)).toEqual('59 minutes ago');
+    expect(getElapsedTimeLabel(0)).toEqual('0 minutes ago');
+    expect(getElapsedTimeLabel(null)).toEqual(false);
 });

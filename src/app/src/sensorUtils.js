@@ -14,6 +14,10 @@ import {
     RATING_POOR,
     LAST_LIVE_SENSOR_DATE,
     LAST_QUARTERLY_SURVEY_DATE,
+    msPerHour,
+    msPerMonth,
+    msPerWeek,
+    msPerYear,
 } from './constants';
 import sensors from './sensors.json';
 import positiveFishIcon from './img/fish_positive.svg';
@@ -180,4 +184,53 @@ export function getClassNameFromOverallRating(rating) {
     } else {
         return 'warning';
     }
+}
+
+export function msToHours(ms) {
+    return Math.round(ms / (1000 * 60 * 60));
+}
+
+export function msToMins(ms) {
+    return Math.round(ms / (1000 * 60));
+}
+
+export function getElapsedTimeLabel(elapsedTimeInMS) {
+    // Live sensors data can become stale
+    // Return a sensible message around elapsed time since last data update
+
+    if (elapsedTimeInMS === null) {
+        return false;
+    }
+
+    const now = new Date();
+    const midnightToday = new Date(new Date().setHours(0, 0, 0, 0));
+    const midnightYesterday = new Date(
+        new Date().setDate(now.getDate() - 1)
+    ).setHours(0, 0, 0, 0);
+
+    if (elapsedTimeInMS > msPerYear) {
+        return 'over a year ago';
+    } else if (elapsedTimeInMS > msPerMonth) {
+        return 'in the past year';
+    } else if (elapsedTimeInMS > msPerWeek) {
+        return 'in the past month';
+    } else if (elapsedTimeInMS > now - midnightYesterday) {
+        return 'in the past week';
+    } else if (elapsedTimeInMS > now - midnightToday) {
+        return 'yesterday';
+    } else if (elapsedTimeInMS > msPerHour) {
+        return `${msToHours(elapsedTimeInMS)} hours ago`;
+    } else if (elapsedTimeInMS >= 0) {
+        return `${msToMins(elapsedTimeInMS)} minutes ago`;
+    } else {
+        return false;
+    }
+}
+
+export function getMostRecentDateFromList(dates) {
+    return Math.max(...dates);
+}
+
+export function getElapsedTimeSince(date) {
+    return date === 0 ? null : new Date().getTime() - date;
 }
