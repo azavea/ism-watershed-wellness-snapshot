@@ -198,16 +198,14 @@ export function getElapsedTimeLabel(elapsedTimeInMS) {
     // Live sensors data can become stale
     // Return a sensible message around elapsed time since last data update
 
-    if (!elapsedTimeInMS) {
+    if (elapsedTimeInMS === null) {
         return false;
     }
 
     const now = new Date();
+    const midnightToday = new Date(new Date().setHours(0, 0, 0, 0));
     const midnightYesterday = new Date(
         new Date().setDate(now.getDate() - 1)
-    ).setHours(0, 0, 0, 0);
-    const midnightTwoDaysAgo = new Date(
-        new Date().setDate(now.getDate() - 2)
     ).setHours(0, 0, 0, 0);
 
     if (elapsedTimeInMS > msPerYear) {
@@ -216,9 +214,9 @@ export function getElapsedTimeLabel(elapsedTimeInMS) {
         return 'in the past year';
     } else if (elapsedTimeInMS > msPerWeek) {
         return 'in the past month';
-    } else if (elapsedTimeInMS > now - midnightTwoDaysAgo) {
-        return 'in the past week';
     } else if (elapsedTimeInMS > now - midnightYesterday) {
+        return 'in the past week';
+    } else if (elapsedTimeInMS > now - midnightToday) {
         return 'yesterday';
     } else if (elapsedTimeInMS > msPerHour) {
         return `${msToHours(elapsedTimeInMS)} hours ago`;

@@ -66,7 +66,9 @@ export const DEFAULT_SENSOR_DATA = SENSORS.features.reduce(
     {}
 );
 
-export const msPerHour = 6000000;
+const msPerSecond = 1000;
+export const msPerMinute = msPerSecond * 60;
+export const msPerHour = msPerMinute * 60;
 export const msPerDay = msPerHour * 24;
 export const msPerWeek = msPerDay * 7;
 export const msPerMonth = msPerDay * 30; // roughly a month, 30 days
