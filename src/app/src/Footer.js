@@ -1,9 +1,16 @@
 import React from 'react';
 
 import feedIcon from './img/feed.svg';
-import { getElapsedTimeLabel } from './sensorUtils';
+import {
+    getElapsedTimeLabel,
+    getMostRecentDateFromList,
+    getElapsedTimeSince,
+} from './sensorUtils';
 
-export default function Footer({ msElapsedSinceLastUpdate }) {
+export default function Footer({ sensorReadingDates }) {
+    const msElapsedSinceLastUpdate = getElapsedTimeSince(
+        getMostRecentDateFromList(sensorReadingDates)
+    );
     const label = getElapsedTimeLabel(msElapsedSinceLastUpdate);
     const message = label
         ? `Health reading last updated ${label}.`

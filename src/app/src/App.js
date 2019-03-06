@@ -47,18 +47,13 @@ class App extends Component {
             const sensorId = sensor.properties.Id;
             return sensorData[sensorId].timestamp;
         });
-        const mostRecentDate = Math.max(...sensorReadingDates);
-        const msElapsedSinceLastUpdate =
-            mostRecentDate === 0 ? null : new Date().getTime() - mostRecentDate;
 
         return (
             <div id='app-container' className={containerClassName}>
                 {isIntroVisible ? <Intro /> : null}
                 <div className='main l-landing'>
                     <Header />
-                    <Footer
-                        msElapsedSinceLastUpdate={msElapsedSinceLastUpdate}
-                    />
+                    <Footer sensorReadingDates={sensorReadingDates} />
                 </div>
                 <GLMap />
                 {selectedSensor !== null ? (

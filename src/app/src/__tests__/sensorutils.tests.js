@@ -6,6 +6,7 @@ import {
     transformSensorDataToRatings,
     calculateOverallSensorRating,
     getElapsedTimeLabel,
+    getMostRecentDateFromList,
 } from '../sensorUtils';
 
 import {
@@ -144,6 +145,17 @@ it('transforms sensor data to sensor ratings', () => {
     );
 
     expect(actualSensorRatings.sensorRatings).toEqual(expectedSensorRatings);
+});
+
+it('selects the most recent date', () => {
+    const december = new Date('2018-12-01');
+    const november = new Date('2018-11-01');
+    const may = new Date('2018-05-10');
+
+    const dates = [may, november, december];
+    const decemberAsNum = december.getTime();
+
+    expect(getMostRecentDateFromList(dates)).toEqual(decemberAsNum);
 });
 
 it('transforms sensor data timestamps to the expected message', () => {

@@ -226,3 +226,11 @@ export function getElapsedTimeLabel(elapsedTimeInMS) {
         return false;
     }
 }
+
+export function getMostRecentDateFromList(dates) {
+    return Math.max(...dates);
+}
+
+export function getElapsedTimeSince(date) {
+    return date === 0 ? null : new Date().getTime() - date;
+}
