@@ -13,8 +13,6 @@ export const initialMapState = {
         zoom: 9,
         bearing: -30,
         pitch: 60,
-        height: '100vh',
-        width: '100vw',
     },
 };
 
