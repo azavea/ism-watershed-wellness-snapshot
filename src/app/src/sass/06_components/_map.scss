@@ -13,26 +13,34 @@
 
 .mapboxgl-ctrl-compass {
   position: absolute;
-  bottom: 20px;
-  right: 40px;
   border-radius: 20px;
   border: 1px solid #D3ECEE !important;
 }
 
 .p-landing {
   .mapboxgl-ctrl-bottom-left {
-    bottom: 78px;
+    bottom: 45px;
   }
 
   .mapboxgl-ctrl-bottom-right {
-    bottom: 78px;
+    bottom: 45px;
+  }
+
+  .mapboxgl-ctrl-compass {
+    bottom: 55px;
+    right: 50px;
   }
 }
 
 .p-detail {
   .mapboxgl-ctrl-bottom-right {
+    left: 47%;
     right: inherit;
-    left: 160px;
-    bottom: 30px;
+  }
+
+  .mapboxgl-ctrl-compass {
+    bottom: 10px;
+    left: 43%;
+    right: inherit;
   }
 }
