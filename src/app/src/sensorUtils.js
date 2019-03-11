@@ -86,7 +86,9 @@ export function parseRiverGaugeCsvData(id, data) {
     }
     const dataRow = data.slice(-1)[0];
     const timestamp = new Date(
-        `${dataRow.sample_dt} ${dataRow.sample_start_time_datum_cd}`
+        `${dataRow.sample_dt.replace(/-/g, '/')} ${
+            dataRow.sample_start_time_datum_cd
+        }`
     );
 
     const extractedVariableData = VARIABLES.reduce(
