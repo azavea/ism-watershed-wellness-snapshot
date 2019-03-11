@@ -13,34 +13,52 @@
 
 .mapboxgl-ctrl-compass {
   position: absolute;
-  border-radius: 20px;
-  border: 1px solid #D3ECEE !important;
+}
+
+.mapboxgl-ctrl-icon.mapboxgl-ctrl-compass > .mapboxgl-ctrl-compass-arrow {
+  width: 30px!important;
+  height: 30px!important;
+  background-image: url('../img/compass.svg')!important;
+  background-size: 25px;
+  background-position: center;
+  margin: 0!important;
 }
 
 .p-landing {
   .mapboxgl-ctrl-bottom-left {
-    bottom: 45px;
+    bottom: 50px;
+
+    // Our wrapper library doesn't support moving this in in the Mapbox API
+    right: 20px;
+    left: auto;
   }
 
   .mapboxgl-ctrl-bottom-right {
     bottom: 45px;
+    right: 11rem;
   }
 
   .mapboxgl-ctrl-compass {
-    bottom: 55px;
-    right: 50px;
+    top: 15px;
+    right: 20px;
   }
 }
 
 .p-detail {
+  .mapboxgl-ctrl-bottom-left {
+    bottom: 5px;
+
+    // Our wrapper library doesn't support moving this in in the Mapbox API
+    right: 66rem;
+    left: auto;
+  }
+
   .mapboxgl-ctrl-bottom-right {
-    left: 47%;
-    right: inherit;
+    right: 75rem;
   }
 
   .mapboxgl-ctrl-compass {
-    bottom: 10px;
-    left: 43%;
-    right: inherit;
+    top: 10px;
+    right: 66rem;
   }
 }
