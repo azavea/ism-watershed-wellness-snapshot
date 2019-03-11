@@ -49,16 +49,17 @@
     bottom: 5px;
 
     // Our wrapper library doesn't support moving this in in the Mapbox API
-    right: 66rem;
-    left: auto;
+    right: inherit;
+    left: 40%;
   }
 
   .mapboxgl-ctrl-bottom-right {
-    right: 75rem;
+    left: 38%;
+    right: inherit;
   }
 
   .mapboxgl-ctrl-compass {
     top: 10px;
-    right: 66rem;
+    left: 46%;
   }
 }
