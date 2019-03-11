@@ -60,7 +60,7 @@
       // Check for iOS
       if (iPadSafari) {
         // webkitRequestFullscreen() only works on an event. So if the user clicks anywhere on the screen, enter fullscreen.
-        document.addEventListener('click', _enterFullScreen, false);
+        document.getElementById('app-container').addEventListener('click', _enterFullScreen, false);
       }
     });
   </script>
