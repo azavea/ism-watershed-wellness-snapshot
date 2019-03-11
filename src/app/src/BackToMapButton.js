@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { deselectSensor } from './app.actions';
-import { initialMapState } from './map.reducers';
+import { mapOverviewViewport } from './constants';
 import deRiverBasin from './img/de_river_basin.svg';
 
 export default function BackToMapButton(props) {
     const handleOnClick = () => {
         deselectSensor();
-        props.handleOnClick(initialMapState.viewport);
+        props.handleOnClick(mapOverviewViewport);
     };
 
     return (

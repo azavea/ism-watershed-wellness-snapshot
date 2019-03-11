@@ -73,3 +73,23 @@ export const msPerDay = msPerHour * 24;
 export const msPerWeek = msPerDay * 7;
 export const msPerMonth = msPerDay * 30; // roughly a month, 30 days
 export const msPerYear = msPerWeek * 52;
+
+export const mapOverviewViewport = Object.freeze({
+    zoom: 9,
+    bearing: -30,
+    pitch: 60,
+    latitude: 40.2161,
+    longitude: -75.0726,
+    transitionDuration: 1500,
+});
+
+export const initialMapViewport = Object.freeze({
+    zoom: 8,
+    bearing: -25,
+    pitch: 0,
+    latitude: 40.2161,
+    longitude: -75.0726,
+});
+
+export const primaryMapStyle =
+    'mapbox://styles/azavea/cjrky7g714qpy2spmyk5u9llq';

@@ -24,6 +24,21 @@
   margin: 0!important;
 }
 
+.p-intro {
+  .mapboxgl-ctrl-bottom-right {
+    display: none;
+  }
+
+  .mapboxgl-ctrl-bottom-left {
+    bottom: 10px;
+    left: 10px;
+  }
+
+  .mapboxgl-ctrl-icon.mapboxgl-ctrl-compass {
+    display: none;
+  }
+}
+
 .p-landing {
   .mapboxgl-ctrl-bottom-left {
     bottom: 50px;
