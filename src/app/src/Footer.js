@@ -26,8 +26,7 @@ export default function Footer({ sensorReadingDates }) {
                         alt='Feed icon'
                     />
                 </div>
-                <p className='footer__text' />
-                {message}
+                <p className='footer__text'>{message}</p>
             </div>
         </footer>
     );
