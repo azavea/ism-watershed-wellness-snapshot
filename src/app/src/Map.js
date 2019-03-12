@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import ReactMapGL, {
-    NavigationControl,
-    Marker,
-    FlyToInterpolator,
-} from 'react-map-gl';
+import ReactMapGL, { NavigationControl, Marker } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { connect } from 'react-redux';
 import mapboxgl from 'mapbox-gl';
@@ -27,13 +23,7 @@ class GLMap extends Component {
 
     goToLocation = options => {
         toggleBackToMapButton();
-
-        this.props.updateViewport(
-            Object.assign({}, options, {
-                transitionInterpolator: new FlyToInterpolator(),
-                transitionDuration: 3000,
-            })
-        );
+        this.props.updateViewport(options);
     };
 
     renderCityMarkers = (sensor, index) => {
@@ -62,6 +52,12 @@ class GLMap extends Component {
     };
 
     render() {
+        const markers = this.props.areMarkersVisible
+            ? Object.values(this.props.sensors.features).map(
+                  this.renderCityMarkers
+              )
+            : null;
+
         return (
             <div id='map' className='map'>
                 <ReactMapGL
@@ -71,9 +67,7 @@ class GLMap extends Component {
                     height={'100%'}
                     width={'100%'}
                     mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
-                    mapStyle={
-                        'mapbox://styles/azavea/cjrky7g714qpy2spmyk5u9llq'
-                    }
+                    mapStyle={this.props.style}
                     interactive={false}
                     doubleClickZoom={false}
                     dragPan={false}
@@ -84,9 +78,7 @@ class GLMap extends Component {
                     attributionControl={false}
                 >
                     <NavigationControl showZoom={false} />
-                    {Object.values(this.props.sensors.features).map(
-                        this.renderCityMarkers
-                    )}
+                    {markers}
                 </ReactMapGL>
                 {this.props.showBackToMapButton ? (
                     <BackToMapButton handleOnClick={this.goToLocation} />
@@ -99,6 +91,8 @@ class GLMap extends Component {
 function mapStateToProps(state) {
     return {
         mapstate: state.map.viewport,
+        areMarkersVisible: state.map.areMarkersVisible,
+        style: state.map.style,
         showBackToMapButton: state.map.isBackToMapButtonVisible,
         sensors: state.app.sensors,
         sensorRatings: state.app.sensorRatings,
