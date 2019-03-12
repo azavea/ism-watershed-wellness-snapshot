@@ -21,7 +21,7 @@ export default function SensorOverview({
                             {sensor.properties.Location}
                         </h2>
                         <p className='sidebar__intro'>
-                            {sensor.properties.Name}
+                            {sensor.properties.Description}
                         </p>
                     </header>
 
