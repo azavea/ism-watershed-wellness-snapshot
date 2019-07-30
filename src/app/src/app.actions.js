@@ -8,6 +8,8 @@ import {
     transformSensorDataToRatings,
 } from './sensorUtils';
 
+import { DEFAULT_SENSOR_DATA } from './constants';
+
 export const hideIntro = createAction('Hide intro screen');
 export const selectSensor = createAction('Select sensor');
 export const deselectSensor = createAction('Deselect sensor');
@@ -60,6 +62,9 @@ export function pollSensor(sensor) {
             // The app will always show data, albeit dummy initial data or stale sensor data,
             // if on-going sensor requests fail
             failPollingSensor(e);
+            updateSensorRatings(
+                transformSensorDataToRatings(DEFAULT_SENSOR_DATA[Id])
+            );
         }
     };
 }
