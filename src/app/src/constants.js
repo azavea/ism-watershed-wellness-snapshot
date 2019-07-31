@@ -46,6 +46,7 @@ export const VARIABLE_CODES = {
 };
 
 export const VARIABLE_WITHIN_HEALTHY_RANGE = 1;
+export const VARIABLE_NEAR_EDGE_OF_HEALTHY_RANGE = 0.5;
 export const VARIABLE_NOT_WITHIN_HEALTHY_RANGE = 0;
 export const RATING_GOOD = 'GOOD';
 export const RATING_FAIR = 'FAIR';
