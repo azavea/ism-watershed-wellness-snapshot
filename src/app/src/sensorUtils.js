@@ -8,6 +8,7 @@ import {
     VARIABLE_CODES,
     VARIABLE_WITHIN_HEALTHY_RANGE,
     VARIABLE_NOT_WITHIN_HEALTHY_RANGE,
+    VARIABLE_NEAR_EDGE_OF_HEALTHY_RANGE,
     OVERALL_RATING,
     RATING_GOOD,
     RATING_FAIR,
@@ -117,19 +118,37 @@ export function calculateOverallSensorRating(sensorRatings) {
     }
 }
 
+function inRangeInclusive(x, lowerLimit, upperLimit) {
+    return lowerLimit <= x && x <= upperLimit;
+}
+
 export function transformSensorDataToRatings(sensorData) {
     const sensor = getSensorByProp('Id', sensorData.id).properties;
     const sensorRatings = VARIABLES.reduce((acc, variable) => {
         const { lower, upper } = sensor.HealthyRanges[variable];
         const variableValue = sensorData[variable];
+        // A variable is in fair condition if it is within 10%
+        // of the upper or lower end of the healthy range.
+        const isVariableNearEdgeOfHealthyRange =
+            inRangeInclusive(
+                variableValue,
+                lower,
+                (upper - lower) / 10 + lower
+            ) ||
+            inRangeInclusive(
+                variableValue,
+                upper - (upper - lower) / 10,
+                upper
+            );
         const isVariableWithinHealthyRange =
             lower <= variableValue && variableValue <= upper;
+        const variableRating = isVariableNearEdgeOfHealthyRange
+            ? VARIABLE_NEAR_EDGE_OF_HEALTHY_RANGE
+            : isVariableWithinHealthyRange
+            ? VARIABLE_WITHIN_HEALTHY_RANGE
+            : VARIABLE_NOT_WITHIN_HEALTHY_RANGE;
 
-        return Object.assign(acc, {
-            [variable]: isVariableWithinHealthyRange
-                ? VARIABLE_WITHIN_HEALTHY_RANGE
-                : VARIABLE_NOT_WITHIN_HEALTHY_RANGE,
-        });
+        return Object.assign(acc, { [variable]: variableRating });
     }, {});
 
     return {

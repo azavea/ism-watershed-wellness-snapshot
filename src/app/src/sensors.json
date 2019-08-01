@@ -12,23 +12,23 @@
         "HealthyRanges": {
             "TURBIDITY": {
                 "lower": 0,
-                "upper": 29
+                "upper": 40
             },
             "OXYGEN": {
-                "lower": 5,
-                "upper": 6
+                "lower": 3,
+                "upper": 12
             },
             "PH": {
                 "lower": 6,
-                "upper": 9
+                "upper": 8
             },
             "TEMPERATURE": {
-                "lower": 40,
-                "upper": 87
+                "lower": 32,
+                "upper": 85
             },
             "IBI": {
-                "lower": 0,
-                "upper": 0
+                "lower": 12,
+                "upper": 49
             }
         }
       },
@@ -74,8 +74,8 @@
                 "upper": 87
             },
             "IBI": {
-                "lower": 0,
-                "upper": 0
+                "lower": 13,
+                "upper": 35
             }
         }
       },
@@ -106,23 +106,23 @@
         "HealthyRanges": {
             "TURBIDITY": {
                 "lower": 0,
-                "upper": 29
+                "upper": 3
             },
             "OXYGEN": {
-                "lower": 5,
-                "upper": 6
+                "lower": 6,
+                "upper": 14
             },
             "PH": {
-                "lower": 6,
-                "upper": 9
+                "lower": 6.5,
+                "upper": 8.5
             },
             "TEMPERATURE": {
-                "lower": 40,
-                "upper": 87
+                "lower": 32,
+                "upper": 86
             },
             "IBI": {
-                "lower": 0,
-                "upper": 0
+                "lower": 12,
+                "upper": 99
             }
         }
       },
