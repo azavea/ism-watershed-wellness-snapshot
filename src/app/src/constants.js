@@ -53,11 +53,11 @@ export const RATING_FAIR = 'FAIR';
 export const RATING_POOR = 'POOR';
 export const OVERALL_RATING = 'OVERALL_RATING';
 
-// The selected live sensors last worked on 12/04/2018
-export const LAST_LIVE_SENSOR_DATE = '2018-12-04';
+// The selected live sensors last worked on 08/01/2019
+export const LAST_LIVE_SENSOR_DATE = '2019-08-01';
 
-// Quarterly data was taken for all surveys on or after 8/01/2018
-export const LAST_QUARTERLY_SURVEY_DATE = '2018-08-01';
+// Quarterly data was taken for all surveys on or after 5/28/2019
+export const LAST_QUARTERLY_SURVEY_DATE = '2019-05-28';
 
 export const DEFAULT_SENSOR_DATA = SENSORS.features.reduce(
     (acc, sensor) =>
