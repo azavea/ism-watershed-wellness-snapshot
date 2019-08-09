@@ -16,6 +16,7 @@ import {
     RATING_POOR,
     LAST_LIVE_SENSOR_DATE,
     LAST_QUARTERLY_SURVEY_DATE,
+    TEMPERATURE,
     msPerHour,
     msPerMonth,
     msPerWeek,
@@ -54,6 +55,10 @@ export function parseCsvString(csvString) {
     return data.data;
 }
 
+export function convertCtoF(tempInC) {
+    return Math.round((tempInC * 9) / 5 + 32);
+}
+
 export function parseRiverGaugeApiData(id, data) {
     // API data sends variable data in the same order mirrored in VARIABLES
     const extractedVariableData = VARIABLES.reduce(
@@ -69,8 +74,16 @@ export function parseRiverGaugeApiData(id, data) {
                         Number(sensorReading.value) !==
                         apiVariableData.variable.noDataValue
                 );
+
+                let sensorValue = Number(sensorReading.value);
+
+                // Convert temp from C to F
+                if (variable === TEMPERATURE) {
+                    sensorValue = convertCtoF(sensorValue);
+                }
+
                 return Object.assign(acc, {
-                    [variable]: Number(sensorReading.value),
+                    [variable]: sensorValue,
                     timestamp: new Date(sensorReading.dateTime),
                 });
             } else {
@@ -104,6 +117,9 @@ export function parseRiverGaugeCsvData(id, data) {
             let variableValue = dataRow[code];
             if (!variableValue) {
                 variableValue = DEFAULT_SENSOR_DATA[id][variable];
+            }
+            if (variable === TEMPERATURE) {
+                variableValue = convertCtoF(variableValue);
             }
             return Object.assign(acc, { [variable]: variableValue });
         },

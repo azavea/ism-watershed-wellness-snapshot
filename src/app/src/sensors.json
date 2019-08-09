@@ -42,7 +42,7 @@
       "defaultValues": {
         "OXYGEN": 12.0,
         "PH": 7.0,
-        "TEMPERATURE": 6.0,
+        "TEMPERATURE": 42.8,
         "TURBIDITY": 4.0,
         "id": "01475548",
         "timestamp": 0
@@ -89,7 +89,7 @@
       "defaultValues": {
         "OXYGEN": 10.0,
         "PH": 8.0,
-        "TEMPERATURE": 23.0,
+        "TEMPERATURE": 73.4,
         "TURBIDITY": 0,
         "id": "01474000",
         "timestamp": 0
@@ -136,7 +136,7 @@
       "defaultValues": {
         "OXYGEN": 12.1,
         "PH": 7.4,
-        "TEMPERATURE": 16.0,
+        "TEMPERATURE": 60.8,
         "TURBIDITY": 4.0,
         "id": "01438500",
         "timestamp": 0
