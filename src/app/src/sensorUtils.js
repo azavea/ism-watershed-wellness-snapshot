@@ -4,6 +4,7 @@ import find from 'lodash/find';
 import values from 'lodash/values';
 
 import {
+    DEFAULT_SENSOR_DATA,
     VARIABLES,
     VARIABLE_CODES,
     VARIABLE_WITHIN_HEALTHY_RANGE,
@@ -72,8 +73,13 @@ export function parseRiverGaugeApiData(id, data) {
                     [variable]: Number(sensorReading.value),
                     timestamp: new Date(sensorReading.dateTime),
                 });
+            } else {
+                // If sensor data is missing for a particular variable,
+                // use the default variable value for the sensor
+                return Object.assign(acc, {
+                    [variable]: DEFAULT_SENSOR_DATA[id][variable],
+                });
             }
-            return acc;
         },
         { id }
     );
@@ -95,7 +101,11 @@ export function parseRiverGaugeCsvData(id, data) {
     const extractedVariableData = VARIABLES.reduce(
         (acc, variable) => {
             const code = `p${VARIABLE_CODES[variable]}`;
-            return Object.assign(acc, { [variable]: dataRow[code] || 0 });
+            let variableValue = dataRow[code];
+            if (!variableValue) {
+                variableValue = DEFAULT_SENSOR_DATA[id][variable];
+            }
+            return Object.assign(acc, { [variable]: variableValue });
         },
         { id, timestamp }
     );
