@@ -1,34 +1,9 @@
 .p-landing {
-    .l-landing {
-        display: block;
-    }
-
-    .l-intro {
-        display: none;
-    }
-
-    .l-detail {
-        display: none;
+    .footer {
+        margin-bottom: 0;
     }
 
     .banner {
         margin-top: 0;
     }
 }
-
-/* stylelint-disable selector-max-id */
-#tinicum {
-    top: 60%;
-    left: 20%;
-}
-
-#wissahickon {
-    top: 50%;
-    left: 35%;
-}
-
-#delaware {
-    top: 30%;
-    left: 80%;
-}
-/* stylelint-enable selector-max-id */

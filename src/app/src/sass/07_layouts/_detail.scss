@@ -1,13 +1,5 @@
 .p-detail {
-    .l-landing {
-        display: none;
-    }
-
-    .l-intro {
-        display: none;
-    }
-
-    .l-detail {
-        display: block;
-    }
+    border: 10px solid $brand-orange;
+    width: 100vw;
+    height: 100%;
 }
