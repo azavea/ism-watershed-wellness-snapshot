@@ -16,12 +16,13 @@
 }
 
 .mapboxgl-ctrl-icon.mapboxgl-ctrl-compass > .mapboxgl-ctrl-compass-arrow {
-  width: 30px!important;
-  height: 30px!important;
+  width: 50px!important;
+  height: 50px!important;
   background-image: url('../img/compass.svg')!important;
-  background-size: 25px;
+  background-size: 50px;
   background-position: center;
   margin: 0!important;
+
 }
 
 .p-intro {
@@ -54,8 +55,8 @@
   }
 
   .mapboxgl-ctrl-compass {
-    top: 15px;
-    right: 20px;
+    top: 20px;
+    right: 45px;
   }
 }
 
@@ -74,7 +75,7 @@
   }
 
   .mapboxgl-ctrl-compass {
-    top: 10px;
-    left: 46%;
+    top: 20px;
+    right: 50.5%;
   }
 }

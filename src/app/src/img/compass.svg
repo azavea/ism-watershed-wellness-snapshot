@@ -4,9 +4,20 @@
     <title>Compass</title>
     <desc>Created with Sketch.</desc>
     <g id="Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <filter id="dropshadow" height="130%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="4"/> <!-- stdDeviation is how much to blur -->
+            <feOffset dx="1" dy="1" result="offsetblur"/> <!-- how much to offset -->
+            <feComponentTransfer>
+               <feFuncA type="linear" slope="1"/> <!-- slope is the opacity of the shadow -->
+            </feComponentTransfer>
+            <feMerge>
+               <feMergeNode/> <!-- this contains the offset blurred image -->
+               <feMergeNode in="SourceGraphic"/> <!-- this contains the element that the filter is applied to -->
+            </feMerge>
+        </filter>
         <g id="Home" transform="translate(-1280.000000, -894.000000)" fill-rule="nonzero">
-            <g id="Compass" transform="translate(1273.000000, 887.000000)">
-                <circle id="Oval" fill="#14352D" cx="32.5" cy="32.5" r="24.5"></circle>
+            <g id="Compass" transform="translate(1273.000000, 887.000000)" style="filter:url(#dropshadow)">
+                <circle id="Oval" cx="32.5" cy="32.5" r="24.5"></circle>
                 <path d="M32.5,58 C18.4167389,58 7,46.5832611 7,32.5 C7,18.4167389 18.4167389,7 32.5,7 C46.5832611,7 58,18.4167389 58,32.5 C58,46.5832611 46.5832611,58 32.5,58 Z M32.5,56 C45.4786916,56 56,45.4786916 56,32.5 C56,19.5213084 45.4786916,9 32.5,9 C19.5213084,9 9,19.5213084 9,32.5 C9,45.4786916 19.5213084,56 32.5,56 Z" id="Oval" fill="#D2ECEE"></path>
                 <g id="Group-5" transform="translate(32.853553, 33.353553) rotate(-315.000000) translate(-32.853553, -33.353553) translate(9.853553, 10.353553)">
                     <g id="compass" transform="translate(0.221825, 0.000000)" fill="#D2ECEE">
