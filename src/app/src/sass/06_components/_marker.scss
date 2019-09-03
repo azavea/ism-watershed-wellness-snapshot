@@ -71,6 +71,10 @@
         overflow: hidden;
         border: 2px solid $white;
         border-radius: 50% 50% 50% 0;
+        background-image: url('../img/bubbles.svg')!important;
+        background-blend-mode: overlay;
+        background-size: contain;
+        background-position: center center;
     }
 
     &__level {

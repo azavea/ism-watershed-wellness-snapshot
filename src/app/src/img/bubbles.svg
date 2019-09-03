@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="61px" height="65px" viewBox="0 0 61 65" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>bubbles</title>
+    <g id="bubbles" transform="translate(9.000000, 21.000000)" fill="#FFFFFF">
+        <circle id="bubble-6" cx="11.5" cy="2.5" r="2.5" opacity="0">
+            <animate attributeType="XML" attributeName="cx" from="2.5" to="30" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeType="XML" attributeName="cy" from="11.5" to="-20" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeType="CSS" attributeName="opacity" from="0" to="1" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle id="bubble-5" cx="18.5" cy="54.5" r="2.5" opacity="0">
+            <animate attributeType="XML" attributeName="cx" from="18.5" to="105" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeType="XML" attributeName="cy" from="54.5" to="-30" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeType="CSS" attributeName="opacity" from="0" to="1" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle id="bubble-4" cx="12.5" cy="30" r="2.5" opacity="0">
+            <animate attributeType="XML" attributeName="cx" from="12.5" to="80" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeType="XML" attributeName="cy" from="30" to="-30" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeType="CSS" attributeName="opacity" from="0" to="1" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle id="bubble-3" cx="-4.5" cy="40" r="2.5" opacity="0">
+            <animate attributeType="XML" attributeName="cx" from="-4.5" to="30" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeType="XML" attributeName="cy" from="40" to="10" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeType="CSS" attributeName="opacity" from="0" to="1" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle id="bubble-1" cx="0" cy="9.5" r="2.5" opacity="0">
+            <animate attributeType="XML" attributeName="cx" from="0" to="40" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeType="XML" attributeName="cy" from="9.5" to="-10" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeType="CSS" attributeName="opacity" from="0" to="1" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- Delayed animated bubbles -->
+        <circle id="bubble-7" cx="-40" cy="70" r="2.5" opacity="0">
+            <animate attributeType="XML" attributeName="cx" begin="1s" from="-40" to="40" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeType="XML" attributeName="cy" begin="1s" from="70" to="-30" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeType="CSS" begin="1s" attributeName="opacity" from="0" to="1" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle id="bubble-8" cx="-4.5" cy="50" r="2.5" opacity="0">
+            <animate attributeType="XML" attributeName="cx" begin="1s" from="-4.5" to="30" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeType="XML" attributeName="cy" begin="1s" from="50" to="10" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeType="CSS" attributeName="opacity" begin="1s" from="0" to="1" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle id="bubble-9" cx="30" cy="10" r="2.5" opacity="0">
+            <animate attributeType="XML" attributeName="cx" begin="1s" from="30" to="80" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeType="XML" attributeName="cy" begin="1s" from="10" to="-30" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeType="CSS" attributeName="opacity" begin="1s" from="0" to="1" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+    </g>
+</svg>
