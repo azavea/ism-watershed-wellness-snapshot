@@ -37,7 +37,7 @@ class App extends Component {
         let containerClassName = isIntroVisible
             ? 'main p-intro'
             : selectedSensor
-            ? 'main p-detail'
+            ? `main p-detail detail--${selectedSensor.properties.Location.split(" ").join("-").toLowerCase()}`
             : 'main p-landing';
         if (isSensorModalDisplayed) {
             containerClassName += ' modal-is-open';
