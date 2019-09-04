@@ -12,7 +12,7 @@ export default function SensorOverview({
     isSensorModalDisplayed,
 }) {
     return (
-        <div className='main l-detail l-detail--tinicum'>
+        <div className='main l-detail'>
             <div className='sidebar'>
                 <div className='sidebar__content'>
                     <header className='sidebar__header'>

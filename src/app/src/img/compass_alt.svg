@@ -3,28 +3,31 @@
     <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
     <title>Compass</title>
     <desc>Created with Sketch.</desc>
-    <g id="Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" style="filter:url(#dropshadow)">
         <filter id="dropshadow" height="130%" filterRes="1200">
-            <feGaussianBlur in="SourceAlpha" stdDeviation="4"/> <!-- stdDeviation is how much to blur -->
-            <feOffset dx="1" dy="1" result="offsetblur"/> <!-- how much to offset -->
-            <feComponentTransfer>
-               <feFuncA type="linear" slope="1"/> <!-- slope is the opacity of the shadow -->
-            </feComponentTransfer>
+            <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="DROP"/> <!-- stdDeviation is how much to blur -->
+
+            <!-- flood the region with a ligh grey color; we'll name this layer "COLOR" -->
+            <feFlood flood-color="#0d332c" result="COLOR"></feFlood>
+
+            <!-- Composite the DROP and COLOR layers together to colorize the shadow. The result is named "SHADOW"  -->
+            <feComposite in="COLOR" in2="DROP" operator="in" result="DROPSHADOW"></feComposite>
+
             <feMerge>
-               <feMergeNode/> <!-- this contains the offset blurred image -->
-               <feMergeNode in="SourceGraphic"/> <!-- this contains the element that the filter is applied to -->
+                <feMergeNode in="DROPSHADOW"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
             </feMerge>
         </filter>
         <g id="Home" transform="translate(-1280.000000, -894.000000)" fill-rule="nonzero">
-            <g id="Compass" transform="translate(1273.000000, 887.000000)" style="filter:url(#dropshadow)">
+            <g id="Compass" transform="translate(1273.000000, 887.000000)">
                 <circle id="Oval" cx="32.5" cy="32.5" r="24.5"></circle>
-                <path d="M32.5,58 C18.4167389,58 7,46.5832611 7,32.5 C7,18.4167389 18.4167389,7 32.5,7 C46.5832611,7 58,18.4167389 58,32.5 C58,46.5832611 46.5832611,58 32.5,58 Z M32.5,56 C45.4786916,56 56,45.4786916 56,32.5 C56,19.5213084 45.4786916,9 32.5,9 C19.5213084,9 9,19.5213084 9,32.5 C9,45.4786916 19.5213084,56 32.5,56 Z" id="Oval" fill="#D2ECEE"></path>
+                <path d="M32.5,58 C18.4167389,58 7,46.5832611 7,32.5 C7,18.4167389 18.4167389,7 32.5,7 C46.5832611,7 58,18.4167389 58,32.5 C58,46.5832611 46.5832611,58 32.5,58 Z M32.5,56 C45.4786916,56 56,45.4786916 56,32.5 C56,19.5213084 45.4786916,9 32.5,9 C19.5213084,9 9,19.5213084 9,32.5 C9,45.4786916 19.5213084,56 32.5,56 Z" id="Oval" fill="#ffffff"></path>
                 <g id="Group-5" transform="translate(32.853553, 33.353553) rotate(-315.000000) translate(-32.853553, -33.353553) translate(9.853553, 10.353553)">
-                    <g id="compass" transform="translate(0.221825, 0.000000)" fill="#D2ECEE">
+                    <g id="compass" transform="translate(0.221825, 0.000000)" fill="#ffffff">
                         <polygon id="Triangle" transform="translate(14.500000, 15.221825) rotate(-45.000000) translate(-14.500000, -15.221825) " points="14.5 4.22182541 22 26.2218254 7 26.2218254"></polygon>
                         <path d="M28.7216619,23 L22.2781746,4.09910381 L15.8346873,23 L22.2781746,41.9008962 L28.7216619,23 Z M30.7246848,23.3226739 L23.2246848,45.3226739 C22.9168093,46.2257754 21.6395399,46.2257754 21.3316644,45.3226739 L13.8316644,23.3226739 C13.7603447,23.1134693 13.7603447,22.8865307 13.8316644,22.6773261 L21.3316644,0.677326072 C21.6395399,-0.225775357 22.9168093,-0.225775357 23.2246848,0.677326072 L30.7246848,22.6773261 C30.7960045,22.8865307 30.7960045,23.1134693 30.7246848,23.3226739 Z" id="Combined-Shape" transform="translate(22.278175, 23.000000) rotate(-45.000000) translate(-22.278175, -23.000000) "></path>
                     </g>
-                    <circle id="Oval" fill="#D8EFF1" cx="22.5" cy="23.5" r="2.5"></circle>
+                    <circle id="Oval" fill="#ffffff" cx="22.5" cy="23.5" r="2.5"></circle>
                 </g>
             </g>
         </g>

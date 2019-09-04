@@ -2,7 +2,7 @@
     position: absolute;
     transform: rotate(-45deg) translateX(0) translateY(0);
     transition: transform 0.25s ease-out;
-    animation: markerBounce 3s ease-in infinite;
+    animation: markerBounce 3s  0.01s ease-in infinite;
 
     &:nth-child(1) {
         animation-delay: 0s;
@@ -71,6 +71,10 @@
         overflow: hidden;
         border: 2px solid $white;
         border-radius: 50% 50% 50% 0;
+        background-image: url('../img/bubbles.svg')!important;
+        background-blend-mode: overlay;
+        background-size: contain;
+        background-position: center center;
     }
 
     &__level {

@@ -18,7 +18,8 @@ $font-sizes: (
     400: 2.2rem,
     500: 2.9rem,
     600: 4rem,
-    700: 5.6rem,
+    700: 5.1rem,
+    800: 5.8rem,
 );
 
 $text-settings: (
@@ -98,6 +99,14 @@ $heading-settings: (
         color: map-get($font-colors, dark),
         font-weight: map-get($font-weights, bold),
         font-size: map-get($font-sizes, 700),
+        line-height: 1.2,
+        text-transform: uppercase,
+        letter-spacing: 2px
+    ),
+    800: (
+        color: map-get($font-colors, dark),
+        font-weight: map-get($font-weights, bold),
+        font-size: map-get($font-sizes, 800),
         line-height: 1.2,
         text-transform: uppercase,
         letter-spacing: 2px

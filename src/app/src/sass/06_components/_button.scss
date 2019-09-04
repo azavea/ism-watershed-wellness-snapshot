@@ -39,7 +39,7 @@
             border-radius: 6rem;
             content: "";
             mix-blend-mode: multiply;
-            animation: pulsate 2s ease-in infinite;
+            animation: pulsate 2s 0.01s ease-in infinite;
         }
 
         &::after {

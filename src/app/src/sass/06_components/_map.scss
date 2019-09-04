@@ -16,10 +16,10 @@
 }
 
 .mapboxgl-ctrl-icon.mapboxgl-ctrl-compass > .mapboxgl-ctrl-compass-arrow {
-  width: 30px!important;
-  height: 30px!important;
+  width: 50px!important;
+  height: 50px!important;
   background-image: url('../img/compass.svg')!important;
-  background-size: 25px;
+  background-size: 50px;
   background-position: center;
   margin: 0!important;
 }
@@ -30,8 +30,11 @@
   }
 
   .mapboxgl-ctrl-bottom-left {
-    bottom: 10px;
-    left: 10px;
+    bottom: 20px;
+
+    // Our wrapper library doesn't support moving this in in the Mapbox API
+    right: 25px;
+    left: auto;
   }
 
   .mapboxgl-ctrl-icon.mapboxgl-ctrl-compass {
@@ -44,18 +47,19 @@
     bottom: 50px;
 
     // Our wrapper library doesn't support moving this in in the Mapbox API
-    right: 20px;
+    right: 25px;
     left: auto;
   }
 
   .mapboxgl-ctrl-bottom-right {
-    bottom: 45px;
-    right: 11rem;
+    bottom: 57px;
+    right: 110px;
+    padding-right: 20px;
   }
 
   .mapboxgl-ctrl-compass {
-    top: 15px;
-    right: 20px;
+    top: 20px;
+    right: 45px;
   }
 }
 
@@ -64,17 +68,61 @@
     bottom: 5px;
 
     // Our wrapper library doesn't support moving this in in the Mapbox API
-    right: inherit;
-    left: 40%;
+    left: auto;
+    right: 49%;
   }
 
   .mapboxgl-ctrl-bottom-right {
-    left: 38%;
-    right: inherit;
+    bottom: 12px;
+    right: 56.5%;
   }
 
   .mapboxgl-ctrl-compass {
-    top: 10px;
-    left: 46%;
+    top: 20px;
+    right: 50.5%;
   }
+}
+
+.mapboxgl-ctrl-attrib.mapboxgl-compact {
+    position: relative;
+    height: 20px!important;
+    padding: 0!important;
+    margin: 0!important;
+
+    &::before {
+        content: '';
+        display: block;
+        height: 1.25rem;
+        width: 1px;
+        position: absolute;
+        right: -10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: white;
+        opacity: 0.5;
+    }
+
+    &::after {
+        background-image: url('../img/info.svg')!important;
+        background-repeat: no-repeat;
+        background-color: transparent!important;
+        opacity: 0.85;
+        width: 20px!important;
+        height: 20px!important;
+        background-size: cover;
+        background-position: center;
+    }
+}
+
+.mapboxgl-ctrl-attrib-inner {
+    background-color: darken($brand-green-dark, 5%);
+    padding: 0.25rem 3rem 0.25rem 0.75rem;
+    border-radius: 4px;
+    -webkit-font-smoothing: antialiased;
+    margin-top: -0.25rem;
+    margin-right: -0.25rem;
+
+    a {
+        color: white!important;
+    }
 }

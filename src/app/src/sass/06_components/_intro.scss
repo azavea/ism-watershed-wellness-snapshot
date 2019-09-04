@@ -16,7 +16,7 @@
     }
 
     &__heading {
-        @include heading(700, $color: white, $inverted: true);
+        @include heading(800, $color: white, $inverted: true);
 
         margin-bottom: $pad-comfortable;
     }

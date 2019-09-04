@@ -209,8 +209,13 @@ export function getFishBackgroundForVariableRating(rating) {
 }
 
 export function getClassNameFromVariableRating(rating) {
-    // TODO #69: Figure out how the warning state is defined
-    return rating === 0 ? 'negative' : 'positive';
+    if (rating === VARIABLE_WITHIN_HEALTHY_RANGE) {
+        return 'positive';
+    } else if (rating === VARIABLE_NOT_WITHIN_HEALTHY_RANGE) {
+        return 'negative';
+    } else {
+        return 'warning';
+    }
 }
 
 export function getFishIconForOverallRating(rating) {
