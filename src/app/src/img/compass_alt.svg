@@ -4,7 +4,7 @@
     <title>Compass</title>
     <desc>Created with Sketch.</desc>
     <g id="Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" style="filter:url(#dropshadow)">
-        <filter id="dropshadow" height="130%">
+        <filter id="dropshadow" height="130%" filterRes="1200">
             <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="DROP"/> <!-- stdDeviation is how much to blur -->
 
             <!-- flood the region with a ligh grey color; we'll name this layer "COLOR" -->

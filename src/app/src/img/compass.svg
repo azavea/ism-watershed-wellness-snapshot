@@ -4,7 +4,7 @@
     <title>Compass</title>
     <desc>Created with Sketch.</desc>
     <g id="Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <filter id="dropshadow" height="130%">
+        <filter id="dropshadow" height="130%" filterRes="1200">
             <feGaussianBlur in="SourceAlpha" stdDeviation="4"/> <!-- stdDeviation is how much to blur -->
             <feOffset dx="1" dy="1" result="offsetblur"/> <!-- how much to offset -->
             <feComponentTransfer>

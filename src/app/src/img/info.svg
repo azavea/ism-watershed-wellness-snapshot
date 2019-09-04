@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="white">
-    <filter id="dropshadow" height="130%">
+    <filter id="dropshadow" height="130%" filterRes="1200">
         <feGaussianBlur in="SourceAlpha" stdDeviation="4"/> <!-- stdDeviation is how much to blur -->
         <feOffset dx="1" dy="1" result="offsetblur"/> <!-- how much to offset -->
         <feComponentTransfer>
