@@ -1,5 +1,6 @@
 .modal-is-open {
     overflow: scroll;
+    -webkit-overflow-scrolling: touch;
 
     .main,
     .map {
