@@ -3,6 +3,7 @@ import React from 'react';
 import listUl from './img/list-ul.svg';
 import SensorDetails from './SensorDetails';
 import { showSensorModal } from './app.actions';
+import { RATING_DESCRIPTIONS } from './constants';
 import { getClassNameFromOverallRating } from './sensorUtils';
 
 export default function SensorOverview({
@@ -60,11 +61,7 @@ export default function SensorOverview({
                             <div className='health__level' />
                         </div>
                         <p className='health__description'>
-                            This means that fish and birds are able to Cras
-                            mattis consectetur purus sit amet fermentum. Lorem
-                            ipsum dolor sit amet, consectetur adipiscing elit.
-                            All this contributes to the overall health of the
-                            Delaware Water Gap!
+                            {RATING_DESCRIPTIONS[sensorRatings.OVERALL_RATING]}
                         </p>
                     </div>
                 </div>
