@@ -52,6 +52,11 @@ export const RATING_GOOD = 'GOOD';
 export const RATING_FAIR = 'FAIR';
 export const RATING_POOR = 'POOR';
 export const OVERALL_RATING = 'OVERALL_RATING';
+export const RATING_DESCRIPTIONS = Object.freeze({
+    [RATING_GOOD]: 'This means that conditions are ideal for wildlife to thrive. These areas should be protected to preserve this condition.',
+    [RATING_FAIR]: 'This means that conditions are declining. Conditions indicate that wildlife could be becoming stressed. These areas could be restored to GOOD status.',
+    [RATING_POOR]: 'This means that conditions might be harmful to wildlife. The conditions are not normal compared to other surrounding areas. Conditions could be improved through restoration and protection.'
+});
 
 // The selected live sensors last worked on 08/01/2019
 export const LAST_LIVE_SENSOR_DATE = '2019-08-01';

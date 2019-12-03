@@ -6,7 +6,7 @@
       "properties": {
         "Location": "Tinicum",
         "Name": "USGS 01475548 Cobbs Creek at Mt. Moriah Cemetery, Philadelphia",
-        "Description": "The Tinicum site is near the Philadelphia International Airport at the southern-most end of the Delaware River Basin.",
+        "Description": "Darby Creek runs through thirty-two municipalities before passing through Tinicum Marsh in the John Heinz National Wildlife Refuge. The creek then joins the Delaware River near the Philadelphia Airport.",
         "Id": "01475548",
         "ApiAccess": true,
         "HealthyRanges": {
@@ -53,7 +53,7 @@
       "properties": {
         "Location": "Wissahickon",
         "Name": "USGS 01474000 Wissahickon Creek at Mouth, Philadelphia, PA",
-        "Description": "Wissahickon Creek runs through Fort Washington State Park before emptying into the Schuylkill River in Philadelphia.",
+        "Description": "The Wissahickon Creek runs for approximately 23 miles before emptying into the Schuylkill River. Towards the end of the creek, the Wissahickon Valley Park includes a deep gorge that is part of the Fairmount Park system. The Wissahickon Valley is one of six hundred National Natural Landmarks in the United States.",
         "Id": "01474000",
         "ApiAccess": true,
         "HealthyRanges": {
@@ -100,7 +100,7 @@
       "properties": {
         "Location": "Delaware Water Gap",
         "Name": "USGS 01438500 Delaware River at Montague NJ",
-        "Description": "The Delaware Water Gap is where the Delaware River cuts through the Appalachian Mountains.",
+        "Description": "The Delaware River cuts through the Appalachian Mountains at the Delaware Water Gap. It is also home to the Delaware Water Gap National Recreation Area which includes options for swimming, hiking, biking, kayaking, and more.",
         "Id": "01438500",
         "ApiAccess": false,
         "HealthyRanges": {
