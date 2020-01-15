@@ -1,0 +1,32 @@
+@import url($font-url);
+
+/* stylelint-disable selector-max-type */
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+html, body, #root, #root > div {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    box-sizing: border-box;
+    color: $black;
+    font-size: 62.5%;
+}
+
+body {
+    @include text();
+
+    overflow: auto;
+}
+
+strong {
+    font-weight: font-weight(bold);
+}
+/* stylelint-enable selector-max-type */

@@ -1,0 +1,146 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Location": "Tinicum",
+        "Name": "USGS 01475548 Cobbs Creek at Mt. Moriah Cemetery, Philadelphia",
+        "Description": "Darby Creek runs through thirty-two municipalities before passing through Tinicum Marsh in the John Heinz National Wildlife Refuge. The creek then joins the Delaware River near the Philadelphia Airport.",
+        "Id": "01475548",
+        "ApiAccess": true,
+        "HealthyRanges": {
+            "TURBIDITY": {
+                "lower": 0,
+                "upper": 40
+            },
+            "OXYGEN": {
+                "lower": 3,
+                "upper": 12
+            },
+            "PH": {
+                "lower": 6,
+                "upper": 8
+            },
+            "TEMPERATURE": {
+                "lower": 32,
+                "upper": 85
+            },
+            "IBI": {
+                "lower": 12,
+                "upper": 49
+            }
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.2880,
+          39.9351
+        ]
+      },
+      "defaultValues": {
+        "OXYGEN": 12.0,
+        "PH": 7.0,
+        "TEMPERATURE": 42.8,
+        "TURBIDITY": 4.0,
+        "id": "01475548",
+        "timestamp": 0
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Location": "Wissahickon",
+        "Name": "USGS 01474000 Wissahickon Creek at Mouth, Philadelphia, PA",
+        "Description": "The Wissahickon Creek runs for approximately 23 miles before emptying into the Schuylkill River. Towards the end of the creek, the Wissahickon Valley Park includes a deep gorge that is part of the Fairmount Park system. The Wissahickon Valley is one of six hundred National Natural Landmarks in the United States.",
+        "Id": "01474000",
+        "ApiAccess": true,
+        "HealthyRanges": {
+            "TURBIDITY": {
+                "lower": 0,
+                "upper": 29
+            },
+            "OXYGEN": {
+                "lower": 5,
+                "upper": 6
+            },
+            "PH": {
+                "lower": 6,
+                "upper": 9
+            },
+            "TEMPERATURE": {
+                "lower": 40,
+                "upper": 87
+            },
+            "IBI": {
+                "lower": 13,
+                "upper": 35
+            }
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.2260,
+          40.080
+        ]
+      },
+      "defaultValues": {
+        "OXYGEN": 10.0,
+        "PH": 8.0,
+        "TEMPERATURE": 73.4,
+        "TURBIDITY": 0,
+        "id": "01474000",
+        "timestamp": 0
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Location": "Delaware Water Gap",
+        "Name": "USGS 01438500 Delaware River at Montague NJ",
+        "Description": "The Delaware River cuts through the Appalachian Mountains at the Delaware Water Gap. It is also home to the Delaware Water Gap National Recreation Area which includes options for swimming, hiking, biking, kayaking, and more.",
+        "Id": "01438500",
+        "ApiAccess": false,
+        "HealthyRanges": {
+            "TURBIDITY": {
+                "lower": 0,
+                "upper": 3
+            },
+            "OXYGEN": {
+                "lower": 6,
+                "upper": 14
+            },
+            "PH": {
+                "lower": 6.5,
+                "upper": 8.5
+            },
+            "TEMPERATURE": {
+                "lower": 32,
+                "upper": 86
+            },
+            "IBI": {
+                "lower": 12,
+                "upper": 99
+            }
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.987,
+          41.10
+        ]
+      },
+      "defaultValues": {
+        "OXYGEN": 12.1,
+        "PH": 7.4,
+        "TEMPERATURE": 60.8,
+        "TURBIDITY": 4.0,
+        "id": "01438500",
+        "timestamp": 0
+      }
+    }
+  ]
+}

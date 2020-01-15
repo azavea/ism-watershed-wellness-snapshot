@@ -1,0 +1,114 @@
+$font-url: 'https://use.typekit.net/vyl4wmw.css';
+
+$font-family: 'filson-soft', sans-serif;
+
+$font-weights: (
+    normal: 400,
+    medium: 500,
+    bold: 700,
+);
+
+$default-font-size-text: 300;
+$default-font-size-heading: 500;
+
+$font-sizes: (
+    100: 1rem,
+    200: 1.6rem,
+    300: 1.8rem,
+    400: 2.2rem,
+    500: 2.9rem,
+    600: 4rem,
+    700: 5.1rem,
+    800: 5.8rem,
+);
+
+$text-settings: (
+    100: (
+        color: map-get($font-colors, dark),
+        font-weight: map-get($font-weights, normal),
+        font-size: map-get($font-sizes, 100),
+        line-height: 1.5,
+    ),
+    200: (
+        color: map-get($font-colors, dark),
+        font-weight: map-get($font-weights, normal),
+        font-size: map-get($font-sizes, 200),
+        line-height: 1.5,
+    ),
+    300: (
+        color: map-get($font-colors, normal),
+        font-weight: map-get($font-weights, normal),
+        font-size: map-get($font-sizes, 300),
+        line-height: 1.5,
+    ),
+    400: (
+        color: map-get($font-colors, normal),
+        font-weight: map-get($font-weights, normal),
+        font-size: map-get($font-sizes, 400),
+        line-height: 1.5,
+    ),
+    500: (
+        color: map-get($font-colors, normal),
+        font-weight: map-get($font-weights, normal),
+        font-size: map-get($font-sizes, 500),
+        line-height: 1.35,
+    ),
+);
+
+$heading-settings: (
+    100: (
+        color: map-get($font-colors, normal),
+        font-weight: map-get($font-weights, medium),
+        font-size: map-get($font-sizes, 100),
+        line-height: 1.2,
+        text-transform: uppercase,
+    ),
+    200: (
+        color: map-get($font-colors, normal),
+        font-weight: map-get($font-weights, medium),
+        font-size: map-get($font-sizes, 200),
+        line-height: 1.2,
+    ),
+    300: (
+        color: map-get($font-colors, normal),
+        font-weight: map-get($font-weights, medium),
+        font-size: map-get($font-sizes, 300),
+        line-height: 1.2,
+    ),
+    400: (
+        color: map-get($font-colors, normal),
+        font-weight: map-get($font-weights, medium),
+        font-size: map-get($font-sizes, 400),
+        line-height: 1.2,
+    ),
+    500: (
+        color: map-get($font-colors, normal),
+        font-weight: map-get($font-weights, normal),
+        font-size: map-get($font-sizes, 500),
+        line-height: 1.2,
+    ),
+    600: (
+        color: map-get($font-colors, normal),
+        font-weight: map-get($font-weights, bold),
+        font-size: map-get($font-sizes, 600),
+        line-height: 1.2,
+        text-transform: none,
+        letter-spacing: 0
+    ),
+    700: (
+        color: map-get($font-colors, dark),
+        font-weight: map-get($font-weights, bold),
+        font-size: map-get($font-sizes, 700),
+        line-height: 1.2,
+        text-transform: uppercase,
+        letter-spacing: 2px
+    ),
+    800: (
+        color: map-get($font-colors, dark),
+        font-weight: map-get($font-weights, bold),
+        font-size: map-get($font-sizes, 800),
+        line-height: 1.2,
+        text-transform: uppercase,
+        letter-spacing: 2px
+    ),
+);

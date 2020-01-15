@@ -1,0 +1,16 @@
+version: '3'
+services:
+  app:
+    image: node:10
+    working_dir: /usr/src
+    ports:
+      - "3000:3000"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - CHOKIDAR_INTERVAL=100
+    volumes:
+        - ./src/app:/usr/src
+        # Ensure node_modules cache doesn't clash with other jobs on CI.
+        - /var/cache/ism-watershed-wellness-support-node-modules:/usr/src/node_modules
+    command:
+        yarn start
