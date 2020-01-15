@@ -17,6 +17,7 @@ import {
     LAST_LIVE_SENSOR_DATE,
     LAST_QUARTERLY_SURVEY_DATE,
     TEMPERATURE,
+    TURBIDITY,
     msPerHour,
     msPerMonth,
     msPerWeek,
@@ -148,24 +149,39 @@ function inRangeInclusive(x, lowerLimit, upperLimit) {
     return lowerLimit <= x && x <= upperLimit;
 }
 
+function checkIfVariableNearEdgeOfHealthyRange(
+    variableValue,
+    lower,
+    upper,
+    variable
+) {
+    // A variable is in fair condition if it is within 10%
+    // of the upper or lower end of the healthy range,
+    // except for turbidity, which is only considered fair
+    // if it is within 10% of the upper end.
+    const isVariableNearEdgeOfHealthyRange =
+        (variable !== TURBIDITY &&
+            inRangeInclusive(
+                variableValue,
+                lower,
+                (upper - lower) / 10 + lower
+            )) ||
+        inRangeInclusive(variableValue, upper - (upper - lower) / 10, upper);
+
+    return isVariableNearEdgeOfHealthyRange;
+}
+
 export function transformSensorDataToRatings(sensorData) {
     const sensor = getSensorByProp('Id', sensorData.id).properties;
     const sensorRatings = VARIABLES.reduce((acc, variable) => {
         const { lower, upper } = sensor.HealthyRanges[variable];
         const variableValue = sensorData[variable];
-        // A variable is in fair condition if it is within 10%
-        // of the upper or lower end of the healthy range.
-        const isVariableNearEdgeOfHealthyRange =
-            inRangeInclusive(
-                variableValue,
-                lower,
-                (upper - lower) / 10 + lower
-            ) ||
-            inRangeInclusive(
-                variableValue,
-                upper - (upper - lower) / 10,
-                upper
-            );
+        const isVariableNearEdgeOfHealthyRange = checkIfVariableNearEdgeOfHealthyRange(
+            variableValue,
+            lower,
+            upper,
+            variable
+        );
         const isVariableWithinHealthyRange =
             lower <= variableValue && variableValue <= upper;
         const variableRating = isVariableNearEdgeOfHealthyRange
