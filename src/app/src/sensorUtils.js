@@ -39,7 +39,7 @@ export function makeRiverGaugeRequest(id, isApiRequest) {
     const cleanedCodes = commaSeparatedCodes.slice(0, -1);
 
     const url = isApiRequest
-        ? `https://waterservices.usgs.gov/nwis/iv/?format=json&sites=${id}&param=${cleanedCodes}&startDT=${LAST_LIVE_SENSOR_DATE}`
+        ? `https://nwis.waterservices.usgs.gov/nwis/iv/?format=json&sites=${id}&param=${cleanedCodes}&startDT=${LAST_LIVE_SENSOR_DATE}`
         : `https://nwis.waterdata.usgs.gov/nwis/qwdata/?site_no=${id}&agency_cd=USGS&inventory_output=retrieval&rdb_inventory_output=value&begin_date=${LAST_QUARTERLY_SURVEY_DATE}&TZoutput=0&pm_cd_compare=Greater%20than&radio_parm_cds=all_parm_cds&qw_attributes=0&format=rdb&qw_sample_wide=wide&rdb_qw_attributes=0&date_format=YYYY-MM-DD&rdb_compression=value&submitted_form=brief_list`;
     return axios.get(url);
 }
