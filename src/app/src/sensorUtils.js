@@ -159,14 +159,14 @@ function checkIfVariableNearEdgeOfHealthyRange(
     // of the upper or lower end of the healthy range,
     // except for turbidity, which is only considered fair
     // if it is within 10% of the upper end.
+    const isInUpperTenth = v =>
+        inRangeInclusive(v, upper - (upper - lower) / 10, upper);
+    const isInLowerTenth = v =>
+        inRangeInclusive(v, lower, (upper - lower) / 10 + lower);
     const isVariableNearEdgeOfHealthyRange =
-        (variable !== TURBIDITY &&
-            inRangeInclusive(
-                variableValue,
-                lower,
-                (upper - lower) / 10 + lower
-            )) ||
-        inRangeInclusive(variableValue, upper - (upper - lower) / 10, upper);
+        variable === TURBIDITY
+            ? isInUpperTenth(variableValue)
+            : isInUpperTenth(variableValue) || isInLowerTenth(variableValue);
 
     return isVariableNearEdgeOfHealthyRange;
 }
