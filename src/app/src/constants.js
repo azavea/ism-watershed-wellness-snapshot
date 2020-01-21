@@ -58,11 +58,12 @@ export const RATING_DESCRIPTIONS = Object.freeze({
     [RATING_POOR]: 'This means that conditions might be harmful to wildlife. The conditions are not normal compared to other surrounding areas. Conditions could be improved through restoration and protection.'
 });
 
-// The selected live sensors last worked on 08/01/2019
-export const LAST_LIVE_SENSOR_DATE = '2019-08-01';
+// The nwis.waterservices endpoint was intended for historic data (> 120 days ago)
+// If updating, only use a date > 120 days from the time of writing
+export const LAST_LIVE_SENSOR_DATE = '2019-09-22';
 
-// Quarterly data was taken for all surveys on or after 5/28/2019
-export const LAST_QUARTERLY_SURVEY_DATE = '2019-05-28';
+// Quarterly data was taken for all surveys on or after 08/20/2019
+export const LAST_QUARTERLY_SURVEY_DATE = '2019-08-20';
 
 export const DEFAULT_SENSOR_DATA = SENSORS.features.reduce(
     (acc, sensor) =>
