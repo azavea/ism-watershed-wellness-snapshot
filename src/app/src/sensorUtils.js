@@ -17,6 +17,7 @@ import {
     LAST_LIVE_SENSOR_DATE,
     LAST_QUARTERLY_SURVEY_DATE,
     TEMPERATURE,
+    TURBIDITY,
     msPerHour,
     msPerMonth,
     msPerWeek,
@@ -39,7 +40,7 @@ export function makeRiverGaugeRequest(id, isApiRequest) {
     const cleanedCodes = commaSeparatedCodes.slice(0, -1);
 
     const url = isApiRequest
-        ? `https://waterservices.usgs.gov/nwis/iv/?format=json&sites=${id}&param=${cleanedCodes}&startDT=${LAST_LIVE_SENSOR_DATE}`
+        ? `https://nwis.waterservices.usgs.gov/nwis/iv/?format=json&sites=${id}&param=${cleanedCodes}&startDT=${LAST_LIVE_SENSOR_DATE}`
         : `https://nwis.waterdata.usgs.gov/nwis/qwdata/?site_no=${id}&agency_cd=USGS&inventory_output=retrieval&rdb_inventory_output=value&begin_date=${LAST_QUARTERLY_SURVEY_DATE}&TZoutput=0&pm_cd_compare=Greater%20than&radio_parm_cds=all_parm_cds&qw_attributes=0&format=rdb&qw_sample_wide=wide&rdb_qw_attributes=0&date_format=YYYY-MM-DD&rdb_compression=value&submitted_form=brief_list`;
     return axios.get(url);
 }
@@ -148,24 +149,39 @@ function inRangeInclusive(x, lowerLimit, upperLimit) {
     return lowerLimit <= x && x <= upperLimit;
 }
 
+function checkIfVariableNearEdgeOfHealthyRange(
+    variableValue,
+    lower,
+    upper,
+    variable
+) {
+    // A variable is in fair condition if it is within 10%
+    // of the upper or lower end of the healthy range,
+    // except for turbidity, which is only considered fair
+    // if it is within 10% of the upper end.
+    const isInUpperTenth = v =>
+        inRangeInclusive(v, upper - (upper - lower) / 10, upper);
+    const isInLowerTenth = v =>
+        inRangeInclusive(v, lower, (upper - lower) / 10 + lower);
+    const isVariableNearEdgeOfHealthyRange =
+        variable === TURBIDITY
+            ? isInUpperTenth(variableValue)
+            : isInUpperTenth(variableValue) || isInLowerTenth(variableValue);
+
+    return isVariableNearEdgeOfHealthyRange;
+}
+
 export function transformSensorDataToRatings(sensorData) {
     const sensor = getSensorByProp('Id', sensorData.id).properties;
     const sensorRatings = VARIABLES.reduce((acc, variable) => {
         const { lower, upper } = sensor.HealthyRanges[variable];
         const variableValue = sensorData[variable];
-        // A variable is in fair condition if it is within 10%
-        // of the upper or lower end of the healthy range.
-        const isVariableNearEdgeOfHealthyRange =
-            inRangeInclusive(
-                variableValue,
-                lower,
-                (upper - lower) / 10 + lower
-            ) ||
-            inRangeInclusive(
-                variableValue,
-                upper - (upper - lower) / 10,
-                upper
-            );
+        const isVariableNearEdgeOfHealthyRange = checkIfVariableNearEdgeOfHealthyRange(
+            variableValue,
+            lower,
+            upper,
+            variable
+        );
         const isVariableWithinHealthyRange =
             lower <= variableValue && variableValue <= upper;
         const variableRating = isVariableNearEdgeOfHealthyRange

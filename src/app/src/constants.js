@@ -14,25 +14,25 @@ export const VARIABLE_DETAILS = {
     [TEMPERATURE]: {
         name: 'Water Temperature',
         description:
-            'Water temperature affects the growth and reproduction of living organisms as well as water density.',
+            'Water temperature affects the growth and reproduction of plants and animals in the water.',
         unit: '°F',
     },
     [OXYGEN]: {
         name: 'Dissolved Oxygen',
         description:
-            'A measure of the concentration of oxygen dissolved in a body of water, relative to the maximum concentration.',
+            'Dissolved oxygen is a measure of the concentration of oxygen in a body of water. Plants and animals need oxygen to breath underwater.',
         unit: 'mg/L',
     },
     [PH]: {
         name: 'pH',
         description:
-            'pH is a quantitative measure of the acidity (below 7.0pH) or basicity (above 7.0pH) in a body of water.',
+            'pH tells us how acidic (below 7.0pH) or basic (above 7.0pH) the water is. This determines if the water is healthy enough to support plants and animals.',
         unit: 'pH',
     },
     [TURBIDITY]: {
         name: 'Turbidity',
         description:
-            'Turbidity is a measurement of the cloudiness in a body of water. This cloudiness is caused by the presense of particles that can be invisible to the human eye.',
+            'Turbidity is a measure of the cloudiness of the water. Particles, sediment and pollution may raise turbidity levels.',
         unit: 'NTU',
     },
 };
@@ -53,16 +53,20 @@ export const RATING_FAIR = 'FAIR';
 export const RATING_POOR = 'POOR';
 export const OVERALL_RATING = 'OVERALL_RATING';
 export const RATING_DESCRIPTIONS = Object.freeze({
-    [RATING_GOOD]: 'This means that conditions are ideal for wildlife to thrive. These areas should be protected to preserve this condition.',
-    [RATING_FAIR]: 'This means that conditions are declining. Conditions indicate that wildlife could be becoming stressed. These areas could be restored to GOOD status.',
-    [RATING_POOR]: 'This means that conditions might be harmful to wildlife. The conditions are not normal compared to other surrounding areas. Conditions could be improved through restoration and protection.'
+    [RATING_GOOD]:
+        'This means that conditions are ideal for wildlife to thrive. These areas should be protected to preserve this condition.',
+    [RATING_FAIR]:
+        'This means that conditions are declining. Conditions indicate that wildlife could be becoming stressed. These areas could be restored to GOOD status.',
+    [RATING_POOR]:
+        'This means that conditions might be harmful to wildlife. The conditions are not normal compared to other surrounding areas. Conditions could be improved through restoration and protection.',
 });
 
-// The selected live sensors last worked on 08/01/2019
-export const LAST_LIVE_SENSOR_DATE = '2019-08-01';
+// The nwis.waterservices endpoint was intended for historic data (> 120 days ago)
+// If updating, only use a date > 120 days from the time of writing
+export const LAST_LIVE_SENSOR_DATE = '2019-09-22';
 
-// Quarterly data was taken for all surveys on or after 5/28/2019
-export const LAST_QUARTERLY_SURVEY_DATE = '2019-05-28';
+// Quarterly data was taken for all surveys on or after 08/20/2019
+export const LAST_QUARTERLY_SURVEY_DATE = '2019-08-20';
 
 export const DEFAULT_SENSOR_DATA = SENSORS.features.reduce(
     (acc, sensor) =>
